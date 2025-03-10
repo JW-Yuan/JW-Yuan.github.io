@@ -1,5 +1,5 @@
-site_name: 123#网站名字
-site_url: #你的网址
-site_author: #你的名字
-theme:
- name: material #主题
+site_name: Rookie Blog
+site_url: https://space.bilibili.com/84301069?spm_id_from=333.1007.0.0
+site_author: YJW#你的名字
+theme: 这个是theme
+name: 这个是name

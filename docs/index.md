@@ -1,17 +1,12 @@
-# Welcome to MkDocs
+# Welcome to Rookie Blog
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
-## Commands
+## 社媒网站
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+* github：https://github.com/JW-Yuan
+* 待增
 
-## Project layout
+## 随便试试
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+    看来是md的语法，可以学一学
