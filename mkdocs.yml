@@ -1,1 +1,5 @@
-site_name: My Docs
+site_name: #网站名字
+site_url: #你的网址
+site_author: #你的名字
+theme:
+ name: material #主题
