@@ -18,42 +18,43 @@ if (hamburger) {
     });
 }
 
-// 平滑滚动
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offsetTop = target.offsetTop - 70; // 考虑导航栏高度
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-            // 关闭移动端菜单
-            navMenu.classList.remove('active');
-        }
-    });
-});
-
-// 导航链接激活状态
-window.addEventListener('scroll', function() {
-    const sections = document.querySelectorAll('.section');
+// 根据当前页面设置导航链接激活状态
+function setActiveNavLink() {
+    const currentPath = window.location.pathname;
+    const currentPage = currentPath.split('/').pop() || 'index.html';
     const navLinks = document.querySelectorAll('.nav-link');
     
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (window.scrollY >= sectionTop - 100) {
-            current = section.getAttribute('id');
-        }
-    });
-
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href') === '#' + current) {
+        const linkHref = link.getAttribute('href');
+        const linkPage = linkHref.split('/').pop();
+        
+        // 检查是否是当前页面
+        if (linkPage === currentPage || 
+            (currentPage === '' && linkHref.includes('index.html')) ||
+            (currentPage === 'index.html' && linkHref.includes('index.html'))) {
             link.classList.add('active');
         }
+    });
+}
+
+// 动态显示当前年份
+function setCurrentYear() {
+    const yearElements = document.querySelectorAll('#current-year');
+    const currentYear = new Date().getFullYear();
+    yearElements.forEach(element => {
+        element.textContent = currentYear;
+    });
+}
+
+// 页面加载时设置激活状态和年份
+setActiveNavLink();
+setCurrentYear();
+
+// 点击导航链接时关闭移动端菜单
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function() {
+        navMenu.classList.remove('active');
     });
 });
 
@@ -84,4 +85,3 @@ document.querySelectorAll('.project-card, .dataset-card, .paper-card').forEach(c
     card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(card);
 });
-
