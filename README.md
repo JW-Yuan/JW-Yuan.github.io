@@ -12,6 +12,27 @@
 2. 修改 `assets/css/style.css` 可以自定义样式和颜色
 3. 将更改推送到 GitHub，GitHub Pages 会自动部署
 
+## 部署说明
+
+### GitHub Pages 部署
+
+1. 确保所有文件已推送到 `main` 分支
+2. 在 GitHub 仓库设置中，确保 GitHub Pages 设置为从 `main` 分支部署
+3. 网站会在几分钟内自动更新
+
+### 重要文件
+
+- `.nojekyll` - 此文件告诉 GitHub Pages 不要使用 Jekyll 处理（纯静态 HTML 网站必需）
+- `index.html` - 首页文件（GitHub Pages 标准）
+
+### 如果网站没有更新
+
+1. **等待几分钟** - GitHub Pages 通常需要 1-10 分钟才能更新
+2. **清除浏览器缓存** - 按 `Ctrl+F5` 或 `Cmd+Shift+R` 强制刷新
+3. **检查 GitHub Pages 设置** - 确保设置为从 `main` 分支部署
+4. **确认 `.nojekyll` 文件存在** - 对于纯静态 HTML 网站，此文件是必需的
+5. **检查文件路径** - 确保所有资源文件路径正确
+
 ## 自定义内容
 
 ### 更新个人信息
