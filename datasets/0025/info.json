@@ -1,0 +1,21 @@
+{
+    "id": "0025",
+    "name": "GlaS",
+    "year": 2015,
+    "organs": "Colorectal (Gland)",
+    "staining": "H&E",
+    "size": "165",
+    "data": "Train: 85 (37 benign, 48 malignant); Test: 80 (37 benign, 43 malignant)",
+    "task": [
+        "classi",
+        "seg"
+    ],
+    "type": "Patch (diff sizes - few hundred px)",
+    "other": "20x - Zeiss MIRAX MIDI",
+    "links": {
+        "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/glascontest/",
+        "paper": "https://arxiv.org/pdf/1603.00275v2.pdf",
+        "download": "https://www.kaggle.com/datasets/sani84/glasmiccai2015-gland-segmentation"
+    },
+    "description": "Colorectal (Gland) histopathology dataset. for classi, seg tasks."
+}

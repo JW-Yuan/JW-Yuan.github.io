@@ -1,0 +1,19 @@
+{
+    "id": "0040",
+    "name": "PAIP2023",
+    "year": 2023,
+    "organs": "multiple organ",
+    "staining": "H&E",
+    "size": "",
+    "data": "images +mask",
+    "task": [
+        "seg"
+    ],
+    "type": "patches(1024 X 1024)",
+    "other": "Pancreas data: scanned at 20X magnification or 40X magnification;Colon data: scanned at 40X magnification",
+    "links": {
+        "data": "https://2023paip.grand-challenge.org/",
+        "download": "http://wisepaip.org/challenge"
+    },
+    "description": "multiple organ histopathology dataset. for seg tasks."
+}

@@ -1,0 +1,22 @@
+{
+    "id": "0036",
+    "name": "NuCLS",
+    "year": 2021,
+    "organs": "Breast",
+    "staining": "H&E",
+    "size": "220.000 nuclei from 3.944 roi from 125 patients",
+    "data": "roi + bounding bx + classification",
+    "task": [
+        "detection",
+        "classi",
+        "seg"
+    ],
+    "type": "patch",
+    "other": "(TCGA,imgs from BCSS)",
+    "links": {
+        "data": "https://nucls.grand-challenge.org/",
+        "paper": "https://arxiv.org/ftp/arxiv/papers/2102/2102.09099.pdf",
+        "download": "https://sites.google.com/view/nucls/single-rater"
+    },
+    "description": "Breast histopathology dataset. for detection, classi, seg tasks."
+}

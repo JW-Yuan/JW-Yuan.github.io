@@ -36,99 +36,92 @@
                 <i class="fas fa-database"></i>
                 数据集介绍
             </h2>
-            <div class="datasets-list">
-                <div class="dataset-card">
-                    <div class="dataset-header">
-                        <h3 class="dataset-title">数据集名称 1</h3>
-                        <span class="dataset-badge">公开</span>
-                    </div>
-                    <p class="dataset-description">
-                        这是一个示例数据集介绍。描述数据集的内容、规模、应用场景等信息。
-                        数据集包含 X 个样本，Y 个类别，适用于 Z 任务。
-                    </p>
-                    <div class="dataset-info">
-                        <div class="info-item">
-                            <i class="fas fa-hdd"></i>
-                            <span>大小: ~10GB</span>
+
+            <!-- 筛选器 -->
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="filter-organs">
+                        <i class="fas fa-filter"></i> 器官类型
+                    </label>
+                    <select id="filter-organs" class="filter-select">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-staining">
+                        <i class="fas fa-filter"></i> 染色类型
+                    </label>
+                    <select id="filter-staining" class="filter-select">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-task">
+                        <i class="fas fa-filter"></i> 任务类型
+                    </label>
+                    <div class="task-filter-dropdown">
+                        <button type="button" id="filter-task-toggle" class="task-filter-toggle">
+                            <span id="filter-task-selected">全部</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="filter-task-container" class="task-filter-dropdown-content">
+                            <!-- 任务类型复选框将通过 JavaScript 动态生成 -->
                         </div>
-                        <div class="info-item">
-                            <i class="fas fa-tags"></i>
-                            <span>类别: 图像分类</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-calendar"></i>
-                            <span>年份: 2024</span>
-                        </div>
-                    </div>
-                    <div class="dataset-links">
-                        <a href="#" class="dataset-link">
-                            <i class="fas fa-download"></i> 下载链接
-                        </a>
-                        <a href="#" class="dataset-link">
-                            <i class="fas fa-book"></i> 文档
-                        </a>
                     </div>
                 </div>
+                <div class="filter-group">
+                    <label for="filter-year">
+                        <i class="fas fa-filter"></i> 年份
+                    </label>
+                    <select id="filter-year" class="filter-select">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="search-name">
+                        <i class="fas fa-search"></i> 搜索名称
+                    </label>
+                    <input type="text" id="search-name" class="filter-input" placeholder="输入数据集名称...">
+                </div>
+                <button id="reset-filters" class="reset-btn">
+                    <i class="fas fa-redo"></i> 重置
+                </button>
+            </div>
 
-                <div class="dataset-card">
-                    <div class="dataset-header">
-                        <h3 class="dataset-title">数据集名称 2</h3>
-                        <span class="dataset-badge">公开</span>
-                    </div>
-                    <p class="dataset-description">
-                        另一个数据集示例。可以介绍你收集、整理或参与贡献的数据集。
-                    </p>
-                    <div class="dataset-info">
-                        <div class="info-item">
-                            <i class="fas fa-hdd"></i>
-                            <span>大小: ~5GB</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-tags"></i>
-                            <span>类别: 自然语言处理</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-calendar"></i>
-                            <span>年份: 2023</span>
-                        </div>
-                    </div>
-                    <div class="dataset-links">
-                        <a href="#" class="dataset-link">
-                            <i class="fas fa-download"></i> 下载链接
-                        </a>
+            <!-- 加载状态 -->
+            <div id="loading" class="loading">
+                <i class="fas fa-spinner"></i>
+                <p class="loading-text">正在加载数据集...</p>
+            </div>
+
+            <!-- 错误信息 -->
+            <div id="error" class="error-message" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p class="error-text">加载数据集失败，请稍后重试</p>
+            </div>
+
+            <!-- 数据集表格 -->
+            <div id="datasets-table-container" style="display: none;">
+                <div class="table-info">
+                    <span id="dataset-count">共 <strong>0</strong> 个数据集</span>
+                    <div class="table-hint">
+                        <i class="fas fa-info-circle"></i>
+                        <span>提示：点击数据集名称可以查看详细信息</span>
                     </div>
                 </div>
-
-                <div class="dataset-card">
-                    <div class="dataset-header">
-                        <h3 class="dataset-title">数据集名称 3</h3>
-                        <span class="dataset-badge">公开</span>
-                    </div>
-                    <p class="dataset-description">
-                        可以继续添加更多数据集。每个数据集都有详细的介绍和下载链接。
-                    </p>
-                    <div class="dataset-info">
-                        <div class="info-item">
-                            <i class="fas fa-hdd"></i>
-                            <span>大小: ~20GB</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-tags"></i>
-                            <span>类别: 目标检测</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-calendar"></i>
-                            <span>年份: 2024</span>
-                        </div>
-                    </div>
-                    <div class="dataset-links">
-                        <a href="#" class="dataset-link">
-                            <i class="fas fa-download"></i> 下载链接
-                        </a>
-                        <a href="#" class="dataset-link">
-                            <i class="fas fa-book"></i> 文档
-                        </a>
-                    </div>
+                <div class="table-wrapper">
+                    <table id="datasets-table" class="datasets-table">
+                        <thead>
+                            <tr>
+                                <th>数据集名称 (年份)</th>
+                                <th>文献/数据链接</th>
+                                <th>其他信息</th>
+                            </tr>
+                        </thead>
+                        <tbody id="datasets-tbody">
+                            <!-- 数据将通过 JavaScript 动态生成 -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -142,6 +135,8 @@
         </div>
     </footer>
 
+    <script src="../config.js"></script>
+    <script src="../assets/js/navigation.js"></script>
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/datasets.js"></script>
 </body>

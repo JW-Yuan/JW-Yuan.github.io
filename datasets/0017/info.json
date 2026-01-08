@@ -1,0 +1,21 @@
+{
+    "id": "0017",
+    "name": "CoNSeP - HoVer-Net",
+    "year": 2019,
+    "organs": "Colorectal adenocarcinoma",
+    "staining": "H&E",
+    "size": "Train: 27 images, Test: 14 images, 24.319 nuclei",
+    "data": "images + nuclei (location + class)",
+    "task": [
+        "seg",
+        "classi"
+    ],
+    "type": "patch (1000x1000)",
+    "other": "40x (UHCW)",
+    "links": {
+        "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/hovernet/",
+        "paper": "https://www.sciencedirect.com/science/article/abs/pii/S1361841519301045?via%3Dihub",
+        "download": "https://opendatalab.com/OpenDataLab/CoNSeP/tree/main"
+    },
+    "description": "Colorectal adenocarcinoma histopathology dataset. for seg, classi tasks."
+}

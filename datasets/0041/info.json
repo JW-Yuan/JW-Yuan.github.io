@@ -1,0 +1,22 @@
+{
+    "id": "0041",
+    "name": "PanNuke",
+    "year": 2019,
+    "organs": "multiple (19)",
+    "staining": "H&E",
+    "size": "189.744 nuclei (from >20k wsi)",
+    "data": "images + nuclei (position + classi: neoplastic, connective, non-neoplastic epithelial, dead, inflammatory)",
+    "task": [
+        "seg",
+        "classi"
+    ],
+    "type": "patch(256*256)",
+    "other": "40x",
+    "links": {
+        "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/pannuke",
+        "github": "https://jgamper.github.io/PanNukeDataset/",
+        "paper": "https://link.springer.com/chapter/10.1007/978-3-030-23937-4_2",
+        "download": "https://warwick.ac.uk/fac/cross_fac/tia/data/pannuke/"
+    },
+    "description": "multiple (19) histopathology dataset. for seg, classi tasks."
+}

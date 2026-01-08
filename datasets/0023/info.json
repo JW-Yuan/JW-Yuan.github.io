@@ -1,0 +1,21 @@
+{
+    "id": "0023",
+    "name": "DigestPath2019 - colonoscopy tissue segment",
+    "year": 2019,
+    "organs": "Colon",
+    "staining": "H&E",
+    "size": "Train: 660, Test: 212",
+    "data": "images + lesion annotation",
+    "task": [
+        "seg",
+        "classi"
+    ],
+    "type": "patch (avg 5kx5k)",
+    "other": "20x",
+    "links": {
+        "data": "https://digestpath2019.grand-challenge.org/",
+        "paper": "https://arxiv.org/pdf/1907.03954.pdf",
+        "download": "https://drive.google.com/drive/folders/1hLd_OD4eGeyUrmb7UCWxxFfGSwwMI15V"
+    },
+    "description": "Colon histopathology dataset. for seg, classi tasks."
+}

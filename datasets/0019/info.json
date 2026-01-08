@@ -1,0 +1,20 @@
+{
+    "id": "0019",
+    "name": "CPM-17",
+    "year": 2019,
+    "organs": "brain",
+    "staining": "H&E",
+    "size": "Train: 32, test: 32 (7570 nuclei)",
+    "data": "images + nuclei seg + label",
+    "task": [
+        "seg",
+        "classi"
+    ],
+    "type": "patch (500x500 to 600x600)",
+    "other": "20x, 40x (TCGA)",
+    "links": {
+        "data": "https://drive.google.com/drive/folders/1sJ4nmkif6j4s2FOGj8j6i_Ye7z9w0TfA",
+        "paper": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6454006/"
+    },
+    "description": "brain histopathology dataset. for seg, classi tasks."
+}

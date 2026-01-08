@@ -1,0 +1,21 @@
+{
+    "id": "0028",
+    "name": "Kumar",
+    "year": 2017,
+    "organs": "multiple (8)",
+    "staining": "H&E",
+    "size": "Train: 16 (13.372 nuclei), test same organ (4.130 nuclei): 8, test diff organ (4.121 nuclei): 6",
+    "data": "images + nuclei seg + label",
+    "task": [
+        "seg",
+        "classi"
+    ],
+    "type": "patch (1000x1000)",
+    "other": "40x (TCGA)",
+    "links": {
+        "data": "https://drive.google.com/drive/folders/1bI3RyshWej9c4YoRW-_q7lh7FOFDFUrJ",
+        "paper": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7872382",
+        "download": "https://drive.google.com/drive/folders/1SZMgB9ztnPWWlChWxNPLYDHBVCTdenu4"
+    },
+    "description": "multiple (8) histopathology dataset. for seg, classi tasks."
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YJW's Homepage - 论文详情</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/paper-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Markdown 渲染库 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html">加载中...</a>
+            </div>
+            <ul class="nav-menu">
+                <!-- 导航菜单将通过 JavaScript 动态生成 -->
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 论文详情 -->
+    <section class="section paper-detail-section">
+        <div class="container">
+            <!-- 加载状态 -->
+            <div id="loading" class="loading">
+                <i class="fas fa-spinner"></i>
+                <p class="loading-text">正在加载论文详情...</p>
+            </div>
+
+            <!-- 错误信息 -->
+            <div id="error" class="error-message" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p class="error-text">加载论文详情失败，请稍后重试</p>
+            </div>
+
+            <!-- 详情内容 -->
+            <div id="detail-content" style="display: none;">
+                <!-- 返回按钮 -->
+                <div class="back-button">
+                    <a href="papers.html" class="btn-back">
+                        <i class="fas fa-arrow-left"></i> 返回论文列表
+                    </a>
+                </div>
+
+                <!-- 论文标题和基本信息 -->
+                <div class="paper-header">
+                    <h1 class="paper-title" id="paper-title">
+                        <i class="fas fa-file-alt"></i>
+                        <span id="paper-name"></span>
+                        <span id="paper-year" class="paper-year-badge"></span>
+                    </h1>
+                    <div class="paper-meta-header" id="paper-meta-header">
+                        <!-- 元信息标签 -->
+                    </div>
+                </div>
+
+                <!-- Markdown 渲染区域 -->
+                <div class="info-card markdown-content" id="markdown-container">
+                    <!-- Markdown 内容将在此处渲染 -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> YJW. All rights reserved.</p>
+            <p>Built with <i class="fas fa-heart"></i> using HTML, CSS & JavaScript</p>
+        </div>
+    </footer>
+
+    <script src="../config.js"></script>
+    <script src="../assets/js/navigation.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/paper-detail.js"></script>
+</body>
+</html>
+

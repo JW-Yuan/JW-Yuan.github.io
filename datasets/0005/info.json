@@ -1,0 +1,20 @@
+{
+    "id": "0005",
+    "name": "ADP",
+    "year": 2019,
+    "organs": "multiple",
+    "staining": "multiple (most H&E)",
+    "size": "Train: 14.134, Valid: 1767, Test: 1767 (100 wsi)",
+    "data": "images + 57 hierarchical HTTs (histological tissue type)",
+    "task": [
+        "multi-label (3) classification (hierarchy)"
+    ],
+    "type": "patch (1088x1088)",
+    "other": "40x - Huron TissueScope LE1.2 WSI",
+    "links": {
+        "data": "https://www.dsp.utoronto.ca/projects/ADP/",
+        "github": "https://github.com/mahdihosseini/ADP",
+        "paper": "https://openaccess.thecvf.com/content_CVPR_2019/papers/Hosseini_Atlas_of_Digital_Pathology_A_Generalized_Hierarchical_Histological_Tissue_Type-Annotated_CVPR_2019_paper.pdf"
+    },
+    "description": "Atlas of Digital Pathology - A generalized hierarchical histological tissue type-annotated dataset."
+}

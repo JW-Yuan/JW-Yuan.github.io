@@ -13,13 +13,10 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="../index.html">YJW</a>
+                <a href="../index.html">加载中...</a>
             </div>
             <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">首页</a></li>
-                <li><a href="projects.html" class="nav-link">项目</a></li>
-                <li><a href="datasets.html" class="nav-link">数据集</a></li>
-                <li><a href="papers.html" class="nav-link active">论文心得</a></li>
+                <!-- 导航菜单将通过 JavaScript 动态生成 -->
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -36,96 +33,77 @@
                 <i class="fas fa-book-open"></i>
                 论文阅读心得
             </h2>
-            <div class="papers-list">
-                <article class="paper-card">
-                    <div class="paper-header">
-                        <h3 class="paper-title">论文标题示例 1</h3>
-                        <span class="paper-year">2024</span>
-                    </div>
-                    <div class="paper-authors">
-                        <i class="fas fa-users"></i>
-                        <span>作者1, 作者2, 作者3</span>
-                    </div>
-                    <div class="paper-venue">
-                        <i class="fas fa-building"></i>
-                        <span>会议/期刊名称</span>
-                    </div>
-                    <div class="paper-summary">
-                        <h4>核心思想</h4>
-                        <p>这里是论文的核心思想总结。简要描述论文的主要贡献和创新点。</p>
-                    </div>
-                    <div class="paper-insights">
-                        <h4>个人心得</h4>
-                        <p>这里记录你的阅读心得、思考、启发或对该论文的评价。可以包括方法的优缺点、实验设计的思考等。</p>
-                    </div>
-                    <div class="paper-links">
-                        <a href="#" class="paper-link">
-                            <i class="fas fa-file-pdf"></i> PDF
-                        </a>
-                        <a href="#" class="paper-link">
-                            <i class="fab fa-github"></i> Code
-                        </a>
-                    </div>
-                </article>
 
-                <article class="paper-card">
-                    <div class="paper-header">
-                        <h3 class="paper-title">论文标题示例 2</h3>
-                        <span class="paper-year">2023</span>
+            <!-- 筛选器 -->
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="filter-task">
+                        <i class="fas fa-filter"></i> 任务类型
+                    </label>
+                    <div class="task-filter-dropdown">
+                        <button type="button" id="filter-task-toggle" class="task-filter-toggle">
+                            <span id="filter-task-selected">全部</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="filter-task-container" class="task-filter-dropdown-content">
+                            <!-- 任务类型复选框将通过 JavaScript 动态生成 -->
+                        </div>
                     </div>
-                    <div class="paper-authors">
-                        <i class="fas fa-users"></i>
-                        <span>作者1, 作者2</span>
-                    </div>
-                    <div class="paper-venue">
-                        <i class="fas fa-building"></i>
-                        <span>会议/期刊名称</span>
-                    </div>
-                    <div class="paper-summary">
-                        <h4>核心思想</h4>
-                        <p>另一篇论文的总结。保持格式一致，便于阅读。</p>
-                    </div>
-                    <div class="paper-insights">
-                        <h4>个人心得</h4>
-                        <p>记录你的思考和收获。</p>
-                    </div>
-                    <div class="paper-links">
-                        <a href="#" class="paper-link">
-                            <i class="fas fa-file-pdf"></i> PDF
-                        </a>
-                    </div>
-                </article>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-year">
+                        <i class="fas fa-filter"></i> 年份
+                    </label>
+                    <select id="filter-year" class="filter-select">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="search-name">
+                        <i class="fas fa-search"></i> 搜索名称
+                    </label>
+                    <input type="text" id="search-name" class="filter-input" placeholder="输入论文名称...">
+                </div>
+                <button id="reset-filters" class="reset-btn">
+                    <i class="fas fa-redo"></i> 重置
+                </button>
+            </div>
 
-                <article class="paper-card">
-                    <div class="paper-header">
-                        <h3 class="paper-title">论文标题示例 3</h3>
-                        <span class="paper-year">2023</span>
+            <!-- 加载状态 -->
+            <div id="loading" class="loading">
+                <i class="fas fa-spinner"></i>
+                <p class="loading-text">正在加载论文...</p>
+            </div>
+
+            <!-- 错误信息 -->
+            <div id="error" class="error-message" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p class="error-text">加载论文失败，请稍后重试</p>
+            </div>
+
+            <!-- 论文表格 -->
+            <div id="papers-table-container" style="display: none;">
+                <div class="table-info">
+                    <span id="paper-count">共 <strong>0</strong> 篇论文</span>
+                    <div class="table-hint">
+                        <i class="fas fa-info-circle"></i>
+                        <span>提示：点击论文名称可以查看详细信息</span>
                     </div>
-                    <div class="paper-authors">
-                        <i class="fas fa-users"></i>
-                        <span>作者1, 作者2, 作者3, 作者4</span>
-                    </div>
-                    <div class="paper-venue">
-                        <i class="fas fa-building"></i>
-                        <span>会议/期刊名称</span>
-                    </div>
-                    <div class="paper-summary">
-                        <h4>核心思想</h4>
-                        <p>可以继续添加更多论文阅读心得。每篇论文都有独立的卡片展示。</p>
-                    </div>
-                    <div class="paper-insights">
-                        <h4>个人心得</h4>
-                        <p>记录你对这篇论文的深入思考和理解。</p>
-                    </div>
-                    <div class="paper-links">
-                        <a href="#" class="paper-link">
-                            <i class="fas fa-file-pdf"></i> PDF
-                        </a>
-                        <a href="#" class="paper-link">
-                            <i class="fab fa-github"></i> Code
-                        </a>
-                    </div>
-                </article>
+                </div>
+                <div class="table-wrapper">
+                    <table id="papers-table" class="papers-table">
+                        <thead>
+                            <tr>
+                                <th>论文名称 (年份)</th>
+                                <th>作者/会议</th>
+                                <th>其他信息</th>
+                            </tr>
+                        </thead>
+                        <tbody id="papers-tbody">
+                            <!-- 数据将通过 JavaScript 动态生成 -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </section>
@@ -138,6 +116,8 @@
         </div>
     </footer>
 
+    <script src="../config.js"></script>
+    <script src="../assets/js/navigation.js"></script>
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/papers.js"></script>
 </body>

@@ -1,0 +1,19 @@
+{
+    "id": "0037",
+    "name": "PAIP2019",
+    "year": 2019,
+    "organs": "Liver",
+    "staining": "H&E",
+    "size": "Train: 50, Valid: 10, Test: 40",
+    "data": "images + binary mask",
+    "task": [
+        "seg"
+    ],
+    "type": "wsi",
+    "other": "20x - Aperio AT2",
+    "links": {
+        "data": "https://paip2019.grand-challenge.org/",
+        "paper": "https://www.sciencedirect.com/science/article/pii/S1361841520302188"
+    },
+    "description": "Liver histopathology dataset. for seg tasks."
+}

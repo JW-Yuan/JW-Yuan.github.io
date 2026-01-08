@@ -1,0 +1,20 @@
+{
+    "id": "0002",
+    "name": "ACDC-LungHP",
+    "year": 2019,
+    "organs": "Lung",
+    "staining": "H&E",
+    "size": "Train: 150, Test: 50",
+    "data": "images + xml",
+    "task": [
+        "seg",
+        "classi"
+    ],
+    "type": "wsi",
+    "other": "",
+    "links": {
+        "data": "https://acdc-lunghp.grand-challenge.org/",
+        "paper": "https://ieeexplore.ieee.org/document/9265237"
+    },
+    "description": "Lung histopathology dataset for segmentation and classification tasks."
+}

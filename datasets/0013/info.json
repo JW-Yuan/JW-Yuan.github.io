@@ -1,0 +1,20 @@
+{
+    "id": "0013",
+    "name": "CoCaHis",
+    "year": 2021,
+    "organs": "Colon 转移性结肠癌",
+    "staining": "H&E",
+    "size": "82 (19 patients)",
+    "data": "images + mask from different annotator",
+    "task": [
+        "seg"
+    ],
+    "type": "patch(1037, 1388)",
+    "other": "",
+    "links": {
+        "data": "https://cocahis.irb.hr/",
+        "paper": "https://www.sciencedirect.com/science/article/abs/pii/S1746809420305085",
+        "download": "http://cocahis.irb.hr/wp-content/uploads/2020/12/CoCaHis.hdf5"
+    },
+    "description": "Colon 转移性结肠癌 histopathology dataset. for seg tasks."
+}

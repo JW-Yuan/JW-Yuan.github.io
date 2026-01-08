@@ -1,0 +1,19 @@
+{
+    "id": "0038",
+    "name": "PAIP2020",
+    "year": 2020,
+    "organs": "Colon",
+    "staining": "H&E",
+    "size": "Train: 47, Valid: 31, Test: 40",
+    "data": "images + binary mask",
+    "task": [
+        "seg"
+    ],
+    "type": "wsi",
+    "other": "40x - Aperio AT2",
+    "links": {
+        "data": "https://paip2020.grand-challenge.org/",
+        "github": "https://github.com/wisepaip/paip2020"
+    },
+    "description": "Colon histopathology dataset. for seg tasks."
+}

@@ -1,0 +1,20 @@
+{
+    "id": "0026",
+    "name": "Janowczyk et al.",
+    "year": 2015,
+    "organs": "Breast",
+    "staining": "H&E",
+    "size": "143",
+    "data": "images (12.000 nuclei) + masks",
+    "task": [
+        "seg"
+    ],
+    "type": "Patch (2000x2000)",
+    "other": "40x",
+    "links": {
+        "data": "http://www.andrewjanowczyk.com/use-case-1-nuclei-segmentation/",
+        "github": "https://github.com/choosehappy/public/tree/master/DL%20tutorial%20Code",
+        "download": "https://andrewjanowczyk.com/wp-static/nuclei.tgz"
+    },
+    "description": "Breast histopathology dataset. for seg tasks."
+}

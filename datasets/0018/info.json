@@ -1,0 +1,19 @@
+{
+    "id": "0018",
+    "name": "CPM-15",
+    "year": null,
+    "organs": "brain",
+    "staining": "H&E",
+    "size": "15 (2905 nuclei)",
+    "data": "images + nuclei seg + label",
+    "task": [
+        "seg",
+        "classi"
+    ],
+    "type": "patch (400x400, 600x1000)",
+    "other": "20x, 40x (TCGA)",
+    "links": {
+        "data": "https://drive.google.com/drive/folders/11ko-GcDsPpA9GBHuCtl_jNzWQl6qY_-I"
+    },
+    "description": "brain histopathology dataset. for seg, classi tasks."
+}

@@ -1,0 +1,19 @@
+{
+    "id": "0030",
+    "name": "MIDOG 2022",
+    "year": 2022,
+    "organs": "multiple (6 for train 10 for test)",
+    "staining": "H&E",
+    "size": "Train: 405 cases, 9501 mitotic annotation",
+    "data": "images + seg",
+    "task": [
+        "seg"
+    ],
+    "type": "Patch",
+    "other": "",
+    "links": {
+        "data": "https://midog2022.grand-challenge.org/",
+        "download": "https://drive.google.com/drive/folders/1P73g1xg8jw_JGLJaDFQDnxwQA7ROVykA"
+    },
+    "description": "multiple (6 for train 10 for test) histopathology dataset. for seg tasks."
+}

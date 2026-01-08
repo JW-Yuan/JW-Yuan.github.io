@@ -1,0 +1,20 @@
+{
+    "id": "0021",
+    "name": "CRCHisto",
+    "year": 2016,
+    "organs": "Colon",
+    "staining": "H&E",
+    "size": "100 images, 29.756 nuclei (10 wsi, 9 patients)",
+    "data": "images + point nuclei class label",
+    "task": [
+        "seg",
+        "classi"
+    ],
+    "type": "patch (500x500)",
+    "other": "20x - Omnyx VL120 (UHCW)",
+    "links": {
+        "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/crchistolabelednucleihe/",
+        "paper": "https://ieeexplore.ieee.org/document/7399414"
+    },
+    "description": "Colon histopathology dataset. for seg, classi tasks."
+}

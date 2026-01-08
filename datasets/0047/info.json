@@ -1,0 +1,20 @@
+{
+    "id": "0047",
+    "name": "TNBC",
+    "year": 2019,
+    "organs": "Breast",
+    "staining": "H&E",
+    "size": "50 images, 4022 cells (11 patients)",
+    "data": "images + nuclei seg + label",
+    "task": [
+        "seg",
+        "classi"
+    ],
+    "type": "patch (512x512)",
+    "other": "40x - Philips Ultra Fast Scanner (Curie Inst.)",
+    "links": {
+        "data": "https://drive.google.com/drive/folders/1taB8boGyycjV4X1a2vCIAV9fwMxFSS41",
+        "paper": "https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8438559"
+    },
+    "description": "Breast histopathology dataset. for seg, classi tasks."
+}

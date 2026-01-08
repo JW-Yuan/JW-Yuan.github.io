@@ -1,0 +1,19 @@
+{
+    "id": "0020",
+    "name": "CRAG - MILD-Net",
+    "year": 2019,
+    "organs": "Colon",
+    "staining": "H&E",
+    "size": "Train: 173, Valid: 40",
+    "data": "image + segmentation",
+    "task": [
+        "seg"
+    ],
+    "type": "patch (around 1500x1500)",
+    "other": "20x",
+    "links": {
+        "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/mildnet/",
+        "paper": "https://www.sciencedirect.com/science/article/abs/pii/S1361841518306030?via%3Dihub"
+    },
+    "description": "Colon histopathology dataset. for seg tasks."
+}
