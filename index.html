@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YJW's Homepage</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">YJW</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">首页</a></li>
+                <li><a href="#projects" class="nav-link">项目</a></li>
+                <li><a href="#datasets" class="nav-link">数据集</a></li>
+                <li><a href="#papers" class="nav-link">论文心得</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首页 - 个人信息介绍 -->
+    <section id="home" class="section home-section">
+        <div class="container">
+            <div class="home-content">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+                <h1 class="home-title">你好，我是 YJW</h1>
+                <p class="home-subtitle">欢迎来到我的个人主页</p>
+                <div class="home-description">
+                    <p>我是一名对机器学习和深度学习充满热情的研究者。</p>
+                    <p>在这里，你可以了解我的项目、数据集资源以及论文阅读心得。</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/JW-Yuan" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:your.email@example.com" class="social-link">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub 项目栏目 -->
+    <section id="projects" class="section projects-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-code"></i>
+                GitHub 项目
+            </h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="project-title">项目名称 1</h3>
+                    <p class="project-description">这是一个示例项目描述。你可以在这里介绍项目的主要功能、技术栈和亮点。</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">PyTorch</span>
+                        <span class="tag">Deep Learning</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="#" class="project-link">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="project-title">项目名称 2</h3>
+                    <p class="project-description">这是另一个示例项目。展示你的研究项目、开源贡献或实验性项目。</p>
+                    <div class="project-tags">
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag">Computer Vision</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="project-title">项目名称 3</h3>
+                    <p class="project-description">更多项目可以在这里展示。保持简洁明了的描述，突出项目的核心价值。</p>
+                    <div class="project-tags">
+                        <span class="tag">NLP</span>
+                        <span class="tag">Transformers</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据集介绍栏目 -->
+    <section id="datasets" class="section datasets-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-database"></i>
+                数据集介绍
+            </h2>
+            <div class="datasets-list">
+                <div class="dataset-card">
+                    <div class="dataset-header">
+                        <h3 class="dataset-title">数据集名称 1</h3>
+                        <span class="dataset-badge">公开</span>
+                    </div>
+                    <p class="dataset-description">
+                        这是一个示例数据集介绍。描述数据集的内容、规模、应用场景等信息。
+                        数据集包含 X 个样本，Y 个类别，适用于 Z 任务。
+                    </p>
+                    <div class="dataset-info">
+                        <div class="info-item">
+                            <i class="fas fa-hdd"></i>
+                            <span>大小: ~10GB</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-tags"></i>
+                            <span>类别: 图像分类</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>年份: 2024</span>
+                        </div>
+                    </div>
+                    <div class="dataset-links">
+                        <a href="#" class="dataset-link">
+                            <i class="fas fa-download"></i> 下载链接
+                        </a>
+                        <a href="#" class="dataset-link">
+                            <i class="fas fa-book"></i> 文档
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dataset-card">
+                    <div class="dataset-header">
+                        <h3 class="dataset-title">数据集名称 2</h3>
+                        <span class="dataset-badge">公开</span>
+                    </div>
+                    <p class="dataset-description">
+                        另一个数据集示例。可以介绍你收集、整理或参与贡献的数据集。
+                    </p>
+                    <div class="dataset-info">
+                        <div class="info-item">
+                            <i class="fas fa-hdd"></i>
+                            <span>大小: ~5GB</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-tags"></i>
+                            <span>类别: 自然语言处理</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>年份: 2023</span>
+                        </div>
+                    </div>
+                    <div class="dataset-links">
+                        <a href="#" class="dataset-link">
+                            <i class="fas fa-download"></i> 下载链接
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 论文阅读心得栏目 -->
+    <section id="papers" class="section papers-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                论文阅读心得
+            </h2>
+            <div class="papers-list">
+                <article class="paper-card">
+                    <div class="paper-header">
+                        <h3 class="paper-title">论文标题示例 1</h3>
+                        <span class="paper-year">2024</span>
+                    </div>
+                    <div class="paper-authors">
+                        <i class="fas fa-users"></i>
+                        <span>作者1, 作者2, 作者3</span>
+                    </div>
+                    <div class="paper-venue">
+                        <i class="fas fa-building"></i>
+                        <span>会议/期刊名称</span>
+                    </div>
+                    <div class="paper-summary">
+                        <h4>核心思想</h4>
+                        <p>这里是论文的核心思想总结。简要描述论文的主要贡献和创新点。</p>
+                    </div>
+                    <div class="paper-insights">
+                        <h4>个人心得</h4>
+                        <p>这里记录你的阅读心得、思考、启发或对该论文的评价。可以包括方法的优缺点、实验设计的思考等。</p>
+                    </div>
+                    <div class="paper-links">
+                        <a href="#" class="paper-link">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </a>
+                        <a href="#" class="paper-link">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    </div>
+                </article>
+
+                <article class="paper-card">
+                    <div class="paper-header">
+                        <h3 class="paper-title">论文标题示例 2</h3>
+                        <span class="paper-year">2023</span>
+                    </div>
+                    <div class="paper-authors">
+                        <i class="fas fa-users"></i>
+                        <span>作者1, 作者2</span>
+                    </div>
+                    <div class="paper-venue">
+                        <i class="fas fa-building"></i>
+                        <span>会议/期刊名称</span>
+                    </div>
+                    <div class="paper-summary">
+                        <h4>核心思想</h4>
+                        <p>另一篇论文的总结。保持格式一致，便于阅读。</p>
+                    </div>
+                    <div class="paper-insights">
+                        <h4>个人心得</h4>
+                        <p>记录你的思考和收获。</p>
+                    </div>
+                    <div class="paper-links">
+                        <a href="#" class="paper-link">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 YJW. All rights reserved.</p>
+            <p>Built with <i class="fas fa-heart"></i> using Jekyll</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
+

@@ -1,3 +1,5 @@
-theme: jekyll-theme-minimal
-title: YJW's homepage
-description: Bookmark this to keep an eye on my project updates!
+title: YJW's Homepage
+description: 个人主页 - 项目展示、数据集介绍、论文阅读心得
+author: YJW
+url: https://JW-Yuan.github.io
+baseurl: ""
