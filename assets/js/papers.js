@@ -6,9 +6,8 @@ const PAPERS_CONFIG = SITE_CONFIG.papers || {};
 const currentPath = window.location.pathname || window.location.href;
 const isInTemplates = currentPath.includes('templates/') || currentPath.includes('/templates/');
 const PAPERS_BASE_PATH = isInTemplates ? '../papers/' : 'papers/';
-// 索引文件现在在根目录
-const PAPERS_INDEX_PATH = isInTemplates ? '../papers.json' : 'papers.json';
-const INFO_FILE = PAPERS_CONFIG.files?.info || 'info.json';
+// 索引文件现在在 papers 文件夹中，是列表格式，使用下划线前缀使其排在前面
+const PAPERS_INDEX_PATH = `${PAPERS_BASE_PATH}_papers.json`;
 
 // 调试信息
 console.log('论文路径配置:', {
@@ -39,62 +38,45 @@ function parseTasks(task) {
     return [];
 }
 
-// 加载论文索引（字典格式：{ "0001": "论文名称", ... }）
-async function loadPapersIndex() {
+// 加载所有论文（从 _papers.json 列表格式）
+async function loadPapersList() {
     try {
-        console.log('正在加载论文索引:', PAPERS_INDEX_PATH);
+        console.log('正在加载论文列表:', PAPERS_INDEX_PATH);
         const response = await fetch(PAPERS_INDEX_PATH);
         if (!response.ok) {
-            console.error('加载索引失败:', {
+            console.error('加载论文列表失败:', {
                 status: response.status,
                 statusText: response.statusText,
                 url: PAPERS_INDEX_PATH
             });
-            throw new Error(`Failed to load index: ${response.status} - ${response.statusText}`);
+            throw new Error(`Failed to load papers: ${response.status} - ${response.statusText}`);
         }
-        const indexData = await response.json();
-        // 如果是数组格式（旧格式），转换为字典格式
-        let folderList;
-        if (Array.isArray(indexData)) {
-            // 旧格式：数组，直接使用
-            folderList = indexData;
-            console.log('检测到旧格式索引（数组），找到', folderList.length, '篇论文');
-        } else {
-            // 新格式：字典，提取 key（数字 ID）
-            folderList = Object.keys(indexData).sort();
-            console.log('成功加载论文索引（字典格式），找到', folderList.length, '篇论文');
+        const papersList = await response.json();
+        
+        if (!Array.isArray(papersList)) {
+            throw new Error('_papers.json 格式错误：应该是数组格式');
         }
-        return folderList;
+        
+        console.log('成功加载论文列表，找到', papersList.length, '篇论文');
+        
+        // 处理每个论文
+        return papersList.map(paper => {
+            // 确保 id 字段存在
+            if (!paper.id) {
+                console.warn('论文缺少 id 字段:', paper);
+                return null;
+            }
+            // 解析任务类型（支持数组和字符串格式）
+            paper.tasks = parseTasks(paper.task);
+            // 如果 task 是数组，转换为字符串用于显示
+            if (Array.isArray(paper.task)) {
+                paper.task = paper.task.join(' + ');
+            }
+            return paper;
+        }).filter(p => p !== null);
     } catch (error) {
-        console.error('加载论文索引失败:', error);
+        console.error('加载论文列表失败:', error);
         throw error;
-    }
-}
-
-// 加载单个论文（从文件夹内的 info.json）
-async function loadPaper(folderName) {
-    try {
-        const infoPath = `${PAPERS_BASE_PATH}${folderName}/${INFO_FILE}`;
-        const response = await fetch(infoPath);
-        if (!response.ok) {
-            console.warn(`论文 ${folderName} 的 ${INFO_FILE} 文件不存在或无法加载`);
-            return null;
-        }
-        const data = await response.json();
-        // 添加文件夹名称作为 id（如果没有 id）
-        if (!data.id) {
-            data.id = folderName;
-        }
-        // 解析任务类型（支持数组和字符串格式）
-        data.tasks = parseTasks(data.task);
-        // 如果 task 是字符串，保留原值用于显示；如果是数组，转换为字符串显示
-        if (Array.isArray(data.task)) {
-            data.task = data.task.join(' + ');
-        }
-        return data;
-    } catch (error) {
-        console.error(`加载论文 ${folderName} 失败:`, error);
-        return null;
     }
 }
 
@@ -114,19 +96,8 @@ async function loadAllPapers() {
         error.style.display = 'none';
         container.style.display = 'none';
         
-        // 加载索引（文件夹列表）
-        const folderList = await loadPapersIndex();
-        
-        if (!folderList || folderList.length === 0) {
-            throw new Error('论文索引文件为空');
-        }
-        
-        // 并行加载所有论文
-        const paperPromises = folderList.map(folderName => loadPaper(folderName));
-        const papers = await Promise.all(paperPromises);
-        
-        // 过滤掉加载失败的论文
-        allPapers = papers.filter(p => p !== null);
+        // 直接加载论文列表（列表格式，包含所有信息）
+        allPapers = await loadPapersList();
         
         if (allPapers.length === 0) {
             throw new Error('没有成功加载任何论文');

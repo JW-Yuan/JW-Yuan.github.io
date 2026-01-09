@@ -1,0 +1,935 @@
+[
+  {
+    "id": "0001",
+    "name": "PUMA",
+    "year": 2024,
+    "organs": "Melanoma",
+    "staining": "H&E",
+    "size": "206 ROIs (primary: 103, metastatic: 103), 97,429 nuclei (10 classes: tumor 58.93%, lymphocyte 22.21%, histiocyte 7.36%, stroma 3.96%, epithelium 2.27%, apoptotic 1.90%, vascular endothelium 1.75%, melanophage 0.71%, plasma cell 0.53%, neutrophil 0.38%)",
+    "data": "images + nuclei and tissue annotations + context image",
+    "task": [
+      "seg"
+    ],
+    "type": "patch(1024x1024) context(5120x5120)",
+    "other": "40x - Nanozoomer XR C12000–21/–22",
+    "links": {
+      "data": "https://zenodo.org/records/15050523",
+      "paper": "https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaf011/8024182",
+      "download": "https://zenodo.org/records/15050523"
+    },
+    "description": "Melanoma histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0002",
+    "name": "ACDC-LungHP",
+    "year": 2019,
+    "organs": "Lung",
+    "staining": "H&E",
+    "size": "Train: 150, Test: 50",
+    "data": "images + xml",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "wsi",
+    "other": "",
+    "links": {
+      "data": "https://acdc-lunghp.grand-challenge.org/",
+      "paper": "https://ieeexplore.ieee.org/document/9265237"
+    },
+    "description": "Lung histopathology dataset for segmentation and classification tasks."
+  },
+  {
+    "id": "0003",
+    "name": "ACROBAT 2022",
+    "year": 2022,
+    "organs": "Breast",
+    "staining": "Multiple (IHC, H&E)",
+    "size": "Train: 750 train; Valid: 100; Test: 300",
+    "data": "images (1 H&E match to 1-4 IHC) + landmarks",
+    "task": [
+      "registration"
+    ],
+    "type": "wsi",
+    "other": "40x - Hamamatsu",
+    "links": {
+      "data": "https://acrobat.grand-challenge.org/",
+      "paper": "https://openreview.net/pdf?id=5TTocO2VI3r"
+    },
+    "description": "Breast cancer dataset with multiple staining types for registration tasks."
+  },
+  {
+    "id": "0004",
+    "name": "Adipocyte",
+    "year": 2017,
+    "organs": "skin",
+    "staining": "H&E",
+    "size": "200 patches",
+    "data": "images+mask",
+    "task": [
+      "cell detection"
+    ],
+    "type": "patch (120x150)",
+    "other": "40x",
+    "links": {
+      "data": "https://github.com/ieee8023/countception",
+      "paper": "https://arxiv.org/abs/1703.08710"
+    },
+    "description": "Skin adipocyte dataset for cell detection tasks."
+  },
+  {
+    "id": "0005",
+    "name": "ADP",
+    "year": 2019,
+    "organs": "multiple",
+    "staining": "multiple (most H&E)",
+    "size": "Train: 14.134, Valid: 1767, Test: 1767 (100 wsi)",
+    "data": "images + 57 hierarchical HTTs (histological tissue type)",
+    "task": [
+      "multi-label (3) classification (hierarchy)"
+    ],
+    "type": "patch (1088x1088)",
+    "other": "40x - Huron TissueScope LE1.2 WSI",
+    "links": {
+      "data": "https://www.dsp.utoronto.ca/projects/ADP/",
+      "github": "https://github.com/mahdihosseini/ADP",
+      "paper": "https://openaccess.thecvf.com/content_CVPR_2019/papers/Hosseini_Atlas_of_Digital_Pathology_A_Generalized_Hierarchical_Histological_Tissue_Type-Annotated_CVPR_2019_paper.pdf"
+    },
+    "description": "Atlas of Digital Pathology - A generalized hierarchical histological tissue type-annotated dataset."
+  },
+  {
+    "id": "0006",
+    "name": "AGGC",
+    "year": 2022,
+    "organs": "prostate",
+    "staining": "H&E",
+    "size": "Subset 1: train 105, test 45; Subset2: train 37, test 16; Subset3: train 144, test 67",
+    "data": "images + binary masks",
+    "task": [
+      "seg",
+      "gleason grading"
+    ],
+    "type": "wsi",
+    "other": "20x - Subset1 and Subset2: Akoya Biosciences Scanner, Subset3: each specimen is scanned by multiple scanners",
+    "links": {
+      "data": "https://aggc22.grand-challenge.org/AGGC22/",
+      "paper": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4172090"
+    },
+    "description": "Prostate cancer dataset for segmentation and Gleason grading tasks."
+  },
+  {
+    "id": "0007",
+    "name": "BACH - ICIA2018",
+    "year": 2018,
+    "organs": "Breast",
+    "staining": "H&E",
+    "size": "400",
+    "data": "images (4 classes: normal 100, benign: 100, in situ carcinoma: 100, invasive carcinoma: 100) + 20 unlabeled + 10 labeled WSI (10 patients)",
+    "task": [
+      "classi",
+      "seg"
+    ],
+    "type": "Patch (classi, 2048x1536) + WSI (semantic seg)",
+    "other": "Leica SCN400",
+    "links": {
+      "data": "https://iciar2018-challenge.grand-challenge.org/Dataset/",
+      "paper": "https://www.sciencedirect.com/science/article/abs/pii/S1361841518307941",
+      "download": "https://zenodo.org/records/3632035"
+    },
+    "description": "Breast histopathology dataset. for classi, seg tasks."
+  },
+  {
+    "id": "0008",
+    "name": "BCSS",
+    "year": 2019,
+    "organs": "Breast",
+    "staining": "H&E",
+    "size": "151 wsi, 20.000 patch",
+    "data": "patch + segmentation mask",
+    "task": [
+      "seg"
+    ],
+    "type": "patch",
+    "other": "(TCGA)",
+    "links": {
+      "data": "https://bcsegmentation.grand-challenge.org/",
+      "paper": "https://academic.oup.com/bioinformatics/article/35/18/3461/5307750",
+      "github": "https://github.com/PathologyDataScience/BCSS?tab=readme-ov-file#usage",
+      "download": "https://drive.google.com/drive/folders/1zqbdkQF8i5cEmZOGmbdQm-EP8dRYtvss"
+    },
+    "description": "Breast histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0009",
+    "name": "CAMELYON16",
+    "year": 2016,
+    "organs": "Lymph node",
+    "staining": "H&E",
+    "size": "Train: 270 (160 Normal, 110 with metastases); Test: 130",
+    "data": "images + binary masks",
+    "task": [
+      "classi",
+      "seg"
+    ],
+    "type": "WSI",
+    "other": "slide level analysis",
+    "links": {
+      "data": "https://camelyon16.grand-challenge.org/",
+      "paper": "https://jamanetwork.com/journals/jama/article-abstract/2665774",
+      "download": "https://pan.baidu.com/s/1UW_HLXXjjw5hUvBIUYPgbA"
+    },
+    "description": "Lymph node histopathology dataset. for classi, seg tasks."
+  },
+  {
+    "id": "0010",
+    "name": "CAMELYON17",
+    "year": 2017,
+    "organs": "Lymph node 乳腺癌淋巴结转移",
+    "staining": "H&E",
+    "size": "Train: 500 (100 patients, 5 slides each); Test: 500",
+    "data": "images + binary masks",
+    "task": [
+      "classi",
+      "seg"
+    ],
+    "type": "WSI",
+    "other": "patient level analysis",
+    "links": {
+      "data": "https://camelyon17.grand-challenge.org/",
+      "paper": "https://ieeexplore.ieee.org/document/8447230",
+      "download": "https://pan.baidu.com/s/1mIzSewImtEisclPtTHGSyw"
+    },
+    "description": "Lymph node 乳腺癌淋巴结转移 histopathology dataset. for classi, seg tasks."
+  },
+  {
+    "id": "0011",
+    "name": "CATCH",
+    "year": 2022,
+    "organs": "Skin (Canine) 犬类的，非人类",
+    "staining": "H&E",
+    "size": "350 wsi, 12.424 polygon annotations (13 classes)",
+    "data": "images + contours (JSON)",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "wsi",
+    "other": "40x Aperio ScanScope CS2 (Leica)",
+    "links": {
+      "data": "https://www.cancerimagingarchive.net/collection/catch/",
+      "paper": "https://www.nature.com/articles/s41597-022-01692-w",
+      "download": "https://www.cancerimagingarchive.net/collection/catch/"
+    },
+    "description": "Skin (Canine) 犬类的，非人类 histopathology dataset. for seg, classi tasks."
+  },
+  {
+    "id": "0012",
+    "name": "Cellseg",
+    "year": 2022,
+    "organs": "multiple",
+    "staining": "multiple 模态也不同",
+    "size": "",
+    "data": "images + limited labeled patches",
+    "task": [
+      "seg"
+    ],
+    "type": "wsi",
+    "other": "",
+    "links": {
+      "data": "https://neurips22-cellseg.grand-challenge.org/",
+      "paper": "https://proceedings.mlr.press/v212/lee23b.html",
+      "github": "https://github.com/JunMa11/NeurIPS-CellSeg",
+      "download": "https://pan.baidu.com/s/1lUK7dOR1MhVlaZ-iyOOhhA?pwd=2022#list/path=%2F"
+    },
+    "description": "multiple histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0013",
+    "name": "CoCaHis",
+    "year": 2021,
+    "organs": "Colon 转移性结肠癌",
+    "staining": "H&E",
+    "size": "82 (19 patients)",
+    "data": "images + mask from different annotator",
+    "task": [
+      "seg"
+    ],
+    "type": "patch(1037, 1388)",
+    "other": "",
+    "links": {
+      "data": "https://cocahis.irb.hr/",
+      "paper": "https://www.sciencedirect.com/science/article/abs/pii/S1746809420305085",
+      "download": "http://cocahis.irb.hr/wp-content/uploads/2020/12/CoCaHis.hdf5"
+    },
+    "description": "Colon 转移性结肠癌 histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0016",
+    "name": "CoNIC 2022",
+    "year": 2022,
+    "organs": "Colon",
+    "staining": "H&E",
+    "size": "4981 patch with 431.913 nuclei of 6 types",
+    "data": "image + instance seg mask + classi mask",
+    "task": [
+      "seg",
+      "classi",
+      "reg"
+    ],
+    "type": "patch (256x256)",
+    "other": "20x(from lizard 切片而来)",
+    "links": {
+      "data": "https://conic-challenge.grand-challenge.org/",
+      "github": "https://github.com/TissueImageAnalytics/CoNIC",
+      "paper": "https://arxiv.org/pdf/2111.14485.pdf",
+      "download": "https://drive.google.com/drive/folders/1il9jG7uA4-ebQ_lNmXbbF2eOK9uNwheb"
+    },
+    "description": "Colon histopathology dataset. for seg, classi, reg tasks."
+  },
+  {
+    "id": "0017",
+    "name": "CoNSeP - HoVer-Net",
+    "year": 2019,
+    "organs": "Colorectal adenocarcinoma",
+    "staining": "H&E",
+    "size": "Train: 27 images, Test: 14 images, 24.319 nuclei",
+    "data": "images + nuclei (location + class)",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "patch (1000x1000)",
+    "other": "40x (UHCW)",
+    "links": {
+      "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/hovernet/",
+      "paper": "https://www.sciencedirect.com/science/article/abs/pii/S1361841519301045?via%3Dihub",
+      "download": "https://opendatalab.com/OpenDataLab/CoNSeP/tree/main"
+    },
+    "description": "Colorectal adenocarcinoma histopathology dataset. for seg, classi tasks."
+  },
+  {
+    "id": "0018",
+    "name": "CPM-15",
+    "year": null,
+    "organs": "brain",
+    "staining": "H&E",
+    "size": "15 (2905 nuclei)",
+    "data": "images + nuclei seg + label",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "patch (400x400, 600x1000)",
+    "other": "20x, 40x (TCGA)",
+    "links": {
+      "data": "https://drive.google.com/drive/folders/11ko-GcDsPpA9GBHuCtl_jNzWQl6qY_-I"
+    },
+    "description": "brain histopathology dataset. for seg, classi tasks."
+  },
+  {
+    "id": "0019",
+    "name": "CPM-17",
+    "year": 2019,
+    "organs": "brain",
+    "staining": "H&E",
+    "size": "Train: 32, test: 32 (7570 nuclei)",
+    "data": "images + nuclei seg + label",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "patch (500x500 to 600x600)",
+    "other": "20x, 40x (TCGA)",
+    "links": {
+      "data": "https://drive.google.com/drive/folders/1sJ4nmkif6j4s2FOGj8j6i_Ye7z9w0TfA",
+      "paper": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6454006/"
+    },
+    "description": "brain histopathology dataset. for seg, classi tasks."
+  },
+  {
+    "id": "0020",
+    "name": "CRAG - MILD-Net",
+    "year": 2019,
+    "organs": "Colon",
+    "staining": "H&E",
+    "size": "Train: 173, Valid: 40",
+    "data": "image + segmentation",
+    "task": [
+      "seg"
+    ],
+    "type": "patch (around 1500x1500)",
+    "other": "20x",
+    "links": {
+      "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/mildnet/",
+      "paper": "https://www.sciencedirect.com/science/article/abs/pii/S1361841518306030?via%3Dihub"
+    },
+    "description": "Colon histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0021",
+    "name": "CRCHisto",
+    "year": 2016,
+    "organs": "Colon",
+    "staining": "H&E",
+    "size": "100 images, 29.756 nuclei (10 wsi, 9 patients)",
+    "data": "images + point nuclei class label",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "patch (500x500)",
+    "other": "20x - Omnyx VL120 (UHCW)",
+    "links": {
+      "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/crchistolabelednucleihe/",
+      "paper": "https://ieeexplore.ieee.org/document/7399414"
+    },
+    "description": "Colon histopathology dataset. for seg, classi tasks."
+  },
+  {
+    "id": "0022",
+    "name": "CryoNuSeg",
+    "year": 2021,
+    "organs": "multiple (10: adrenal gland, larynx, lymph nodes, mediastinum, pancreas, pleura, skin, testes, thymus, and thyroid gland)",
+    "staining": "H&E",
+    "size": "8000 nuclei from 30 patches (from 30 wsi)",
+    "data": "images + segmentation masks + binary labels",
+    "task": [
+      "seg"
+    ],
+    "type": "patch (512x512)",
+    "other": "40x (from TCGA)",
+    "links": {
+      "data": "https://www.kaggle.com/datasets/ipateam/segmentation-of-nuclei-in-cryosectioned-he-images",
+      "github": "https://github.com/masih4/CryoNuSeg",
+      "paper": "https://www.sciencedirect.com/science/article/pii/S0010482521001438",
+      "download": "https://www.kaggle.com/datasets/ipateam/segmentation-of-nuclei-in-cryosectioned-he-images"
+    },
+    "description": "multiple (10: adrenal gland, larynx, lymph nodes, mediastinum, pancreas, pleura, skin, testes, thymus, and thyroid gland) histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0023",
+    "name": "DigestPath2019 - colonoscopy tissue segment",
+    "year": 2019,
+    "organs": "Colon",
+    "staining": "H&E",
+    "size": "Train: 660, Test: 212",
+    "data": "images + lesion annotation",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "patch (avg 5kx5k)",
+    "other": "20x",
+    "links": {
+      "data": "https://digestpath2019.grand-challenge.org/",
+      "paper": "https://arxiv.org/pdf/1907.03954.pdf",
+      "download": "https://drive.google.com/drive/folders/1hLd_OD4eGeyUrmb7UCWxxFfGSwwMI15V"
+    },
+    "description": "Colon histopathology dataset. for seg, classi tasks."
+  },
+  {
+    "id": "0024",
+    "name": "Gelasca et al.",
+    "year": null,
+    "organs": "Breast",
+    "staining": "H&E",
+    "size": "50",
+    "data": "images (malignant/benignant, 1.895 nuclei) + masks",
+    "task": [
+      "classi",
+      "seg"
+    ],
+    "type": "Patch (896x768; 768x512)",
+    "other": "",
+    "links": {
+      "data": "https://bioimage.ucsb.edu/research/bio-segmentation"
+    },
+    "description": "Breast histopathology dataset. for classi, seg tasks."
+  },
+  {
+    "id": "0025",
+    "name": "GlaS",
+    "year": 2015,
+    "organs": "Colorectal (Gland)",
+    "staining": "H&E",
+    "size": "165",
+    "data": "Train: 85 (37 benign, 48 malignant); Test: 80 (37 benign, 43 malignant)",
+    "task": [
+      "classi",
+      "seg"
+    ],
+    "type": "Patch (diff sizes - few hundred px)",
+    "other": "20x - Zeiss MIRAX MIDI",
+    "links": {
+      "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/glascontest/",
+      "paper": "https://arxiv.org/pdf/1603.00275v2.pdf",
+      "download": "https://www.kaggle.com/datasets/sani84/glasmiccai2015-gland-segmentation"
+    },
+    "description": "Colorectal (Gland) histopathology dataset. for classi, seg tasks."
+  },
+  {
+    "id": "0026",
+    "name": "Janowczyk et al.",
+    "year": 2015,
+    "organs": "Breast",
+    "staining": "H&E",
+    "size": "143",
+    "data": "images (12.000 nuclei) + masks",
+    "task": [
+      "seg"
+    ],
+    "type": "Patch (2000x2000)",
+    "other": "40x",
+    "links": {
+      "data": "http://www.andrewjanowczyk.com/use-case-1-nuclei-segmentation/",
+      "github": "https://github.com/choosehappy/public/tree/master/DL%20tutorial%20Code",
+      "download": "https://andrewjanowczyk.com/wp-static/nuclei.tgz"
+    },
+    "description": "Breast histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0027",
+    "name": "Kather et al.",
+    "year": 2019,
+    "organs": "Colon",
+    "staining": "H&E",
+    "size": "",
+    "data": "",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "",
+    "other": "",
+    "links": {
+      "data": "https://zenodo.org/record/2532612#.Yt_Zdd_RZhE",
+      "github": "https://github.com/jnkather/MSIfromHE",
+      "paper": "https://www.nature.com/articles/s41591-019-0462-y#data-availability"
+    },
+    "description": "Colon histopathology dataset. for seg, classi tasks."
+  },
+  {
+    "id": "0028",
+    "name": "Kumar",
+    "year": 2017,
+    "organs": "multiple (8)",
+    "staining": "H&E",
+    "size": "Train: 16 (13.372 nuclei), test same organ (4.130 nuclei): 8, test diff organ (4.121 nuclei): 6",
+    "data": "images + nuclei seg + label",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "patch (1000x1000)",
+    "other": "40x (TCGA)",
+    "links": {
+      "data": "https://drive.google.com/drive/folders/1bI3RyshWej9c4YoRW-_q7lh7FOFDFUrJ",
+      "paper": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7872382",
+      "download": "https://drive.google.com/drive/folders/1SZMgB9ztnPWWlChWxNPLYDHBVCTdenu4"
+    },
+    "description": "multiple (8) histopathology dataset. for seg, classi tasks."
+  },
+  {
+    "id": "0029",
+    "name": "Lizard",
+    "year": 2021,
+    "organs": "Colon",
+    "staining": "H&E",
+    "size": "431,913 nuclei (6 classes: epithelial 48.71%, lymphocyte 21.36%, connective 22.54%, plasma 5.76%, neutrophil 0.95%, eosinophil 0.69%), 238 .mat files",
+    "data": "images + instance seg mask",
+    "task": [
+      "seg"
+    ],
+    "type": "patch",
+    "other": "20x (DigestPath + CRAG + GlaS + PanNuke + CoNSeP + TCGA)",
+    "links": {
+      "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/lizard/",
+      "paper": "https://arxiv.org/pdf/2108.11195.pdf",
+      "download": "https://www.kaggle.com/datasets/aadimator/lizard-dataset"
+    },
+    "description": "Colon histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0030",
+    "name": "MIDOG 2022",
+    "year": 2022,
+    "organs": "multiple (6 for train 10 for test)",
+    "staining": "H&E",
+    "size": "Train: 405 cases, 9501 mitotic annotation",
+    "data": "images + seg",
+    "task": [
+      "seg"
+    ],
+    "type": "Patch",
+    "other": "",
+    "links": {
+      "data": "https://midog2022.grand-challenge.org/",
+      "download": "https://drive.google.com/drive/folders/1P73g1xg8jw_JGLJaDFQDnxwQA7ROVykA"
+    },
+    "description": "multiple (6 for train 10 for test) histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0031",
+    "name": "MoNuSAC 2020",
+    "year": 2020,
+    "organs": "multiple (Lung, Prostate, Kidney, Breast)",
+    "staining": "H&E",
+    "size": "31.411 nuclei from 209 images",
+    "data": "images + mask",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "patch (81x113 to 1422x2162)",
+    "other": "40x (TCGA)",
+    "links": {
+      "data": "https://monusac-2020.grand-challenge.org/",
+      "paper": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9446924",
+      "download": "https://drive.google.com/file/d/1lxMZaAPSpEHLSxGA9KKMt_r-4S8dwLhq/view"
+    },
+    "description": "multiple (Lung, Prostate, Kidney, Breast) histopathology dataset. for seg, classi tasks."
+  },
+  {
+    "id": "0032",
+    "name": "MoNuSeg",
+    "year": 2018,
+    "organs": "multiple (7)",
+    "staining": "H&E",
+    "size": "Train: 30, Test: 14",
+    "data": "images (Train: 22.000 nuclei, Test: 7000) + masks",
+    "task": [
+      "seg"
+    ],
+    "type": "Patch (1000x1000)",
+    "other": "40x (from TCGA)",
+    "links": {
+      "data": "https://monuseg.grand-challenge.org/Data/",
+      "github": "https://github.com/ruchikaverma-iitg/MoNuSeg",
+      "paper": "https://ieeexplore.ieee.org/document/8880654",
+      "download": "https://monuseg.grand-challenge.org/Data/"
+    },
+    "description": "multiple (7) histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0033",
+    "name": "Multi-Scanner SCC",
+    "year": 2023,
+    "organs": "Skin (Canine)",
+    "staining": "H&E",
+    "size": "44 samples á 5 scanners (220 wsi)",
+    "data": "images + contours (JSON)",
+    "task": [
+      "registration",
+      "seg"
+    ],
+    "type": "wsi",
+    "other": "5 scanners",
+    "links": {
+      "data": "https://zenodo.org/records/7418555",
+      "paper": "https://link.springer.com/chapter/10.1007/978-3-658-41657-7_46",
+      "download": "https://zenodo.org/records/7418555"
+    },
+    "description": "Skin (Canine) histopathology dataset. for registration, seg tasks."
+  },
+  {
+    "id": "0034",
+    "name": "Naylor et al.",
+    "year": 2018,
+    "organs": "Breast",
+    "staining": "H&E",
+    "size": "50",
+    "data": "images (4.022 nuclei, 11 patients) + masks",
+    "task": [
+      "seg"
+    ],
+    "type": "Patch (512x512)",
+    "other": "40x",
+    "links": {
+      "data": "https://zenodo.org/record/2579118#.Yt5FWt_RaUk",
+      "paper": "https://ieeexplore.ieee.org/document/8438559",
+      "download": "https://zenodo.org/records/2579118#.Yt5FWt_RaUk"
+    },
+    "description": "Breast histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0035",
+    "name": "NuClick",
+    "year": 2020,
+    "organs": "Lymphocyte",
+    "staining": "IHC",
+    "size": "Train: 671, Valid: 200",
+    "data": "images + mask",
+    "task": [
+      "seg"
+    ],
+    "type": "patch (256x256)",
+    "other": "",
+    "links": {
+      "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/nuclick/",
+      "paper": "https://arxiv.org/pdf/2005.14511.pdf",
+      "download": "https://warwick.ac.uk/fac/cross_fac/tia/data/nuclick/hemato_data.zip"
+    },
+    "description": "Lymphocyte histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0036",
+    "name": "NuCLS",
+    "year": 2021,
+    "organs": "Breast",
+    "staining": "H&E",
+    "size": "220.000 nuclei from 3.944 roi from 125 patients",
+    "data": "roi + bounding bx + classification",
+    "task": [
+      "detection",
+      "classi",
+      "seg"
+    ],
+    "type": "patch",
+    "other": "(TCGA,imgs from BCSS)",
+    "links": {
+      "data": "https://nucls.grand-challenge.org/",
+      "paper": "https://arxiv.org/ftp/arxiv/papers/2102/2102.09099.pdf",
+      "download": "https://sites.google.com/view/nucls/single-rater"
+    },
+    "description": "Breast histopathology dataset. for detection, classi, seg tasks."
+  },
+  {
+    "id": "0037",
+    "name": "PAIP2019",
+    "year": 2019,
+    "organs": "Liver",
+    "staining": "H&E",
+    "size": "Train: 50, Valid: 10, Test: 40",
+    "data": "images + binary mask",
+    "task": [
+      "seg"
+    ],
+    "type": "wsi",
+    "other": "20x - Aperio AT2",
+    "links": {
+      "data": "https://paip2019.grand-challenge.org/",
+      "paper": "https://www.sciencedirect.com/science/article/pii/S1361841520302188"
+    },
+    "description": "Liver histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0038",
+    "name": "PAIP2020",
+    "year": 2020,
+    "organs": "Colon",
+    "staining": "H&E",
+    "size": "Train: 47, Valid: 31, Test: 40",
+    "data": "images + binary mask",
+    "task": [
+      "seg"
+    ],
+    "type": "wsi",
+    "other": "40x - Aperio AT2",
+    "links": {
+      "data": "https://paip2020.grand-challenge.org/",
+      "github": "https://github.com/wisepaip/paip2020"
+    },
+    "description": "Colon histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0039",
+    "name": "PAIP2021",
+    "year": 2021,
+    "organs": "Multiple (Colon, Prostate, Pancreas)",
+    "staining": "H&E",
+    "size": "Train: 150, Valid: 30, Test: 60",
+    "data": "wsi + xml gt",
+    "task": [
+      "seg"
+    ],
+    "type": "wsi",
+    "other": "20x - Aperio AT2",
+    "links": {
+      "data": "https://paip2021.grand-challenge.org/Rules/",
+      "paper": "https://arxiv.org/ftp/arxiv/papers/2110/2110.12283.pdf"
+    },
+    "description": "Multiple (Colon, Prostate, Pancreas) histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0040",
+    "name": "PAIP2023",
+    "year": 2023,
+    "organs": "multiple organ",
+    "staining": "H&E",
+    "size": "",
+    "data": "images +mask",
+    "task": [
+      "seg"
+    ],
+    "type": "patches(1024 X 1024)",
+    "other": "Pancreas data: scanned at 20X magnification or 40X magnification;Colon data: scanned at 40X magnification",
+    "links": {
+      "data": "https://2023paip.grand-challenge.org/",
+      "download": "http://wisepaip.org/challenge"
+    },
+    "description": "multiple organ histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0041",
+    "name": "PanNuke",
+    "year": 2019,
+    "organs": "multiple (19)",
+    "staining": "H&E",
+    "size": "189,744 nuclei (5 classes: neoplastic 40.80%, connective/soft tissue 26.66%, inflammatory 17.01%, epithelial 14.00%, dead 1.53%), 3 folds",
+    "data": "images + nuclei (position + classi: neoplastic, connective, non-neoplastic epithelial, dead, inflammatory)",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "patch(256*256)",
+    "other": "40x",
+    "links": {
+      "data": "https://warwick.ac.uk/fac/cross_fac/tia/data/pannuke",
+      "github": "https://jgamper.github.io/PanNukeDataset/",
+      "paper": "https://link.springer.com/chapter/10.1007/978-3-030-23937-4_2",
+      "download": "https://warwick.ac.uk/fac/cross_fac/tia/data/pannuke/"
+    },
+    "description": "multiple (19) histopathology dataset. for seg, classi tasks."
+  },
+  {
+    "id": "0042",
+    "name": "RINGS",
+    "year": 2021,
+    "organs": "prostate",
+    "staining": "H&E",
+    "size": "train: 1000 , test: 500 with 18'851 glands",
+    "data": "images+mask",
+    "task": [
+      "seg"
+    ],
+    "type": "patch (1500x1500)",
+    "other": "40x",
+    "links": {
+      "data": "https://data.mendeley.com/datasets/h8bdwrtnr5/1",
+      "paper": "https://www.sciencedirect.com/science/article/pii/S0933365721000695",
+      "download": "https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/h8bdwrtnr5-1.zip"
+    },
+    "description": "prostate histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0043",
+    "name": "SegLungTCGA",
+    "year": 2021,
+    "organs": "Lung",
+    "staining": "H&E",
+    "size": "454 images + file mapping info",
+    "data": "images",
+    "task": [
+      "seg"
+    ],
+    "type": "segmented (87x87 patches) wsi",
+    "other": "(from TCGA)",
+    "links": {
+      "data": "https://github.com/animgoeth/SegLungTCGA",
+      "paper": "https://bmccancer.biomedcentral.com/articles/10.1186/s12885-022-10081-w#article-info",
+      "download": "https://github.com/animgoeth/SegLungTCGA"
+    },
+    "description": "Lung histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0044",
+    "name": "SegPath",
+    "year": 2023,
+    "organs": "multiple",
+    "staining": "H&E",
+    "size": "158,687 patches",
+    "data": "images + label + mask",
+    "task": [
+      "seg"
+    ],
+    "type": "patch",
+    "other": "20x - Zeiss MIRAX MIDI",
+    "links": {
+      "data": "https://dakomura.github.io/SegPath/",
+      "paper": "https://www.cell.com/patterns/fulltext/S2666-3899(23",
+      "download": "https://zenodo.org/records/7412580"
+    },
+    "description": "multiple histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0045",
+    "name": "SegPC-2021",
+    "year": 2021,
+    "organs": "Blood",
+    "staining": "Jenner-Giemsa",
+    "size": "775 images, Train: 298, Valid: 200, Test: 277",
+    "data": "images + nucleus and cytoplasma",
+    "task": [
+      "seg"
+    ],
+    "type": "2040x1536/1920x2560",
+    "other": "",
+    "links": {
+      "data": "https://segpc-2021.grand-challenge.org/",
+      "github": "https://github.com/dsciitism/SegPC-2021",
+      "download": "https://www.kaggle.com/datasets/sbilab/segpc2021dataset/data"
+    },
+    "description": "Blood histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0046",
+    "name": "TIGER",
+    "year": 2022,
+    "organs": "Breast",
+    "staining": "H&E",
+    "size": "WSIROIS: 195 wsi, WSIBULK: 93, WSITILS: 82",
+    "data": "images + rois + label (7)",
+    "task": [
+      "detection",
+      "seg",
+      "tils-scoring"
+    ],
+    "type": "wsi",
+    "other": "(from TCGA, RUMC, JB) from BCSS和Nucls",
+    "links": {
+      "data": "https://tiger.grand-challenge.org/",
+      "paper": "https://arxiv.org/abs/2206.11943",
+      "github": "https://github.com/DIAGNijmegen/pathology-tiger-algorithm-example"
+    },
+    "description": "Breast histopathology dataset. for detection, seg, tils-scoring tasks."
+  },
+  {
+    "id": "0047",
+    "name": "TNBC",
+    "year": 2019,
+    "organs": "Breast",
+    "staining": "H&E",
+    "size": "50 images, 4022 cells (11 patients)",
+    "data": "images + nuclei seg + label",
+    "task": [
+      "seg",
+      "classi"
+    ],
+    "type": "patch (512x512)",
+    "other": "40x - Philips Ultra Fast Scanner (Curie Inst.)",
+    "links": {
+      "data": "https://drive.google.com/drive/folders/1taB8boGyycjV4X1a2vCIAV9fwMxFSS41",
+      "paper": "https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8438559"
+    },
+    "description": "Breast histopathology dataset. for seg, classi tasks."
+  },
+  {
+    "id": "0048",
+    "name": "TUPAC16 - aux",
+    "year": 2019,
+    "organs": "Breast - mitoses",
+    "staining": "H&E",
+    "size": "73",
+    "data": "images + locations",
+    "task": [
+      "seg"
+    ],
+    "type": "patch",
+    "other": "40x (from TCGA) Leica SCN400",
+    "links": {
+      "data": "https://tupac.grand-challenge.org/",
+      "download": "https://tupac.grand-challenge.org/Dataset/"
+    },
+    "description": "Breast - mitoses histopathology dataset. for seg tasks."
+  }
+]

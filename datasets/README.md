@@ -4,56 +4,92 @@
 
 ```
 datasets/
-├── [dataset-id]/                 # 每个数据集的文件夹 (例如: 0001/)
-│   ├── info.json                 # 数据集基本信息文件
-│   ├── detail.md                 # 数据集详细信息（Markdown 格式）
-│   ├── process.py (可选)         # 处理脚本 Python 文件
-│   └── img/ (可选)               # 可视化图片文件夹
-│       ├── image1.png
-│       └── image2.jpg
+├── datasets.json              # 数据集列表文件（列表格式，包含所有数据集的基本信息）
+├── 0001.md                    # 数据集详细信息（Markdown 格式，文件名对应数据集 ID）
+├── 0002.md                    # 另一个数据集的详细信息
+├── 0003.md
+└── README.md                  # 本说明文件
 ```
 
-所有数据集索引信息存储在根目录的 `datasets.json` 文件中。
+**注意**：所有数据集的基本信息都存储在 `datasets.json` 中，详细信息存储在对应的 `{id}.md` 文件中。
 
-## 数据集基本信息文件格式
+## 数据集列表文件格式
 
-每个数据集的基本信息文件（`info.json`）应包含以下字段：
+`datasets.json` 是一个**列表格式**的 JSON 文件，每个元素是一个数据集的基本信息对象：
 
 ```json
-{
-    "id": "0001",                     // 数据集唯一标识符（必需，4位数字ID）
-    "name": "ACDC-LungHP",            // 数据集名称（必需）
-    "year": 2019,                     // 发布年份
-    "organs": "Lung",                 // 器官类型
-    "staining": "H&E",                // 染色类型
-    "size": "Train: 150, Test: 50",  // 数据集大小
-    "data": "images + xml",           // 数据格式
-    "task": ["seg", "classi"],       // 任务类型 (数组格式)
-    "type": "wsi",                   // 数据类型
-    "other": "",                      // 其他信息
-    "description": "数据集描述",      // 数据集描述
-    "links": {                        // 相关链接
-        "data": "https://...",
-        "paper": "https://...",
-        "github": "https://..."
-    }
-}
+[
+  {
+    "id": "0001",
+    "name": "PUMA",
+    "year": 2024,
+    "organs": "Melanoma",
+    "staining": "H&E",
+    "size": "206 ROIs (primary: 103, metastatic: 103)",
+    "data": "images + nuclei and tissue annotations + context image",
+    "task": ["seg"],
+    "type": "patch(1024x1024) context(5120x5120)",
+    "other": "40x - Nanozoomer XR C12000–21/–22",
+    "links": {
+      "data": "https://zenodo.org/records/15050523",
+      "paper": "https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaf011/8024182",
+      "download": "https://zenodo.org/records/15050523"
+    },
+    "description": "Melanoma histopathology dataset. for seg tasks."
+  },
+  {
+    "id": "0002",
+    "name": "ACDC-LungHP",
+    "year": 2019,
+    "organs": "Lung",
+    "staining": "H&E",
+    "size": "Train: 150, Test: 50",
+    "data": "images + xml",
+    "task": ["seg", "classi"],
+    "type": "wsi",
+    "other": "",
+    "links": {
+      "data": "https://example.com",
+      "paper": "https://example.com/paper"
+    },
+    "description": "Lung histopathology dataset."
+  }
+]
 ```
 
-**重要**：`id` 字段必须与文件夹名称一致，且为 4 位数字。`task` 字段应为字符串数组。
+### 字段说明
+
+- **id** (必需): 数据集唯一标识符，4位数字 ID（如 "0001"）
+- **name** (必需): 数据集名称
+- **year**: 发布年份
+- **organs**: 器官类型
+- **staining**: 染色类型
+- **size**: 数据集大小描述
+- **data**: 数据格式描述
+- **task**: 任务类型，**数组格式**（如 `["seg", "classi"]`）
+- **type**: 数据类型
+- **other**: 其他信息
+- **description**: 数据集描述
+- **links**: 相关链接对象
+  - `data`: 数据下载链接
+  - `paper`: 论文链接
+  - `github`: GitHub 链接（可选）
+  - `download`: 下载链接（可选）
+
+**重要**：`id` 字段必须是唯一的 4 位数字。`task` 字段应为字符串数组。
 
 ## 数据集详细信息文件格式
 
-详细信息文件应放在每个数据集的文件夹中，使用 **Markdown 格式**，文件名固定为 `detail.md`。
+详细信息文件应放在 `datasets/` 文件夹中，使用 **Markdown 格式**，文件名格式为 `{id}.md`（例如：`0001.md`）。
 
 ### Markdown 文件示例
 
 ```markdown
-# 数据集名称
+# PUMA 数据集详情
 
 ## 数据集描述
 
-这里是数据集的详细描述...
+PUMA (Pathology Understanding through Multi-scale Analysis) 是一个用于黑色素瘤组织病理学分析的数据集。
 
 ## 文件结构
 
@@ -113,26 +149,27 @@ dataset/
 ![样本分布](sample-distribution.png)
 ```
 
-系统会自动将图片路径转换为：`../datasets/[dataset-id]/img/sample-distribution.png`
+系统会自动将图片路径转换为：`datasets/{id}/img/sample-distribution.png`
 
 **注意**：
-- 图片文件应放在 `datasets/[dataset-id]/img/` 文件夹中
+- 如果图片需要放在特定文件夹中，可以创建 `{id}/img/` 文件夹结构
 - 如果使用完整 URL（`http://` 或 `https://`），则不会进行路径转换
 - 如果使用绝对路径（以 `/` 开头），也不会进行路径转换
 
 ## 添加新数据集
 
-1. **创建数据集文件夹**：在 `datasets/` 文件夹中创建新的 4 位数字 ID 文件夹（如 `0050/`）
-2. **创建基本信息文件**：在该文件夹中创建 `info.json`
-3. **创建详细信息文件**（可选）：在该文件夹中创建 `detail.md`
-4. **添加可视化文件**（可选）：在该文件夹的 `img/` 子文件夹中添加图片文件
-5. **添加到索引**：在根目录的 `datasets.json` 中添加新的 ID 和数据集名称
+1. **编辑 `datasets.json`**：在列表中添加新的数据集对象（包含所有基本信息）
+2. **创建详细信息文件**（可选）：创建 `{id}.md` 文件，例如 `0050.md`
+3. **添加可视化文件**（可选）：如果需要图片，可以创建 `{id}/img/` 文件夹并添加图片文件
 
 ### 示例
 
-创建 `0050/info.json`:
+在 `datasets.json` 中添加新数据集：
+
 ```json
-{
+[
+  // ... 其他数据集
+  {
     "id": "0050",
     "name": "New Dataset",
     "year": 2024,
@@ -144,37 +181,39 @@ dataset/
     "type": "patch (512x512)",
     "other": "40x magnification",
     "links": {
-        "data": "https://example.com/data",
-        "paper": "https://example.com/paper"
+      "data": "https://example.com/data",
+      "paper": "https://example.com/paper"
     },
     "description": "A new dataset for segmentation tasks."
-}
+  }
+]
 ```
 
-然后在根目录的 `datasets.json` 中添加：
-```json
-{
-    "0001": "PUMA",
-    "0002": "ACDC-LungHP",
-    // ... 其他数据集
-    "0050": "New Dataset"
-}
+然后创建 `0050.md` 文件（可选）：
+
+```markdown
+# New Dataset 详情
+
+## 数据集描述
+
+这里是新数据集的详细描述...
 ```
 
 ## 注意事项
 
-- 文件夹名和 `info.json` 中的 `id` 字段必须是唯一的 4 位数字 ID
+- `id` 字段必须是唯一的 4 位数字 ID
+- `datasets.json` 必须是有效的 JSON 数组格式
 - 所有链接字段都是可选的
 - `year` 字段用于排序，建议填写
 - `organs`, `staining`, `task` 字段用于筛选，建议填写
-- 索引文件 `datasets.json` 位于网站根目录，格式为字典：`{ "0001": "数据集名称", ... }`
+- `task` 字段必须是字符串数组格式
 
 ## 优势
 
-使用 Markdown 格式的优势：
+使用扁平化结构的优势：
 
-- ✅ **易于编写**：使用纯文本格式，无需学习 JSON 语法
-- ✅ **格式丰富**：支持标题、列表、表格、代码块等多种格式
+- ✅ **简化结构**：不需要为每个数据集创建文件夹
+- ✅ **集中管理**：所有基本信息集中在一个 JSON 文件中
 - ✅ **易于维护**：可以直接在 GitHub 上编辑和预览
-- ✅ **版本控制友好**：Markdown 文件在 Git 中更容易查看差异
-- ✅ **可读性强**：即使不渲染，Markdown 文件也具有良好的可读性
+- ✅ **版本控制友好**：文件结构更简单，Git 中更容易查看差异
+- ✅ **易于编写**：Markdown 文件使用纯文本格式，无需学习复杂语法

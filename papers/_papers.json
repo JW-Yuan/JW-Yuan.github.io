@@ -1,0 +1,53 @@
+[
+  {
+    "id": "0001",
+    "name": "histopathology datasets made public for classification, segmentation, regression and/or registration tasks",
+    "shortName": "Histopathology Datasets Survey",
+    "year": 2024,
+    "task": [
+      "segmentation",
+      "classification"
+    ],
+    "authors": "作者1, 作者2, 作者3",
+    "venue": "会议/期刊名称",
+    "summary": "这里是论文的核心思想总结。简要描述论文的主要贡献和创新点。",
+    "insights": "这里记录你的阅读心得、思考、启发或对该论文的评价。可以包括方法的优缺点、实验设计的思考等。",
+    "links": {
+      "pdf": "#",
+      "code": "#"
+    }
+  },
+  {
+    "id": "0002",
+    "name": "示例论文 2 - 完整标题示例",
+    "shortName": "示例论文 2",
+    "year": 2023,
+    "task": [
+      "detection"
+    ],
+    "authors": "作者1, 作者2",
+    "venue": "会议/期刊名称",
+    "summary": "另一篇论文的总结。保持格式一致，便于阅读。",
+    "insights": "记录你的思考和收获。",
+    "links": {
+      "pdf": "#"
+    }
+  },
+  {
+    "id": "0003",
+    "name": "示例论文 3 - 这是一个很长的完整论文标题示例",
+    "shortName": "示例论文 3",
+    "year": 2023,
+    "task": [
+      "segmentation"
+    ],
+    "authors": "作者1, 作者2, 作者3, 作者4",
+    "venue": "会议/期刊名称",
+    "summary": "可以继续添加更多论文阅读心得。每篇论文都有独立的卡片展示。",
+    "insights": "记录你对这篇论文的深入思考和理解。",
+    "links": {
+      "pdf": "#",
+      "code": "#"
+    }
+  }
+]

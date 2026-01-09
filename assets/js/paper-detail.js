@@ -6,8 +6,8 @@ const PAPERS_CONFIG = SITE_CONFIG.papers || {};
 const currentPath = window.location.pathname || window.location.href;
 const isInTemplates = currentPath.includes('templates/') || currentPath.includes('/templates/');
 const PAPERS_BASE_PATH = isInTemplates ? '../papers/' : 'papers/';
-const INFO_FILE = PAPERS_CONFIG.files?.info || 'info.json';
-const DETAIL_FILE = PAPERS_CONFIG.files?.detail || 'detail.md';
+// 论文列表文件（列表格式，使用下划线前缀使其排在前面）
+const PAPERS_LIST_PATH = `${PAPERS_BASE_PATH}_papers.json`;
 
 // 从 URL 参数获取论文 ID
 function getPaperIdFromURL() {
@@ -15,81 +15,46 @@ function getPaperIdFromURL() {
     return urlParams.get('id');
 }
 
-// 加载论文基本信息
+// 加载论文基本信息（从列表格式的 _papers.json）
 async function loadPaperBasicInfo(paperId) {
     try {
-        // 先加载索引文件（字典格式：{ "0001": "论文名称", ... }）
-        // 索引文件现在在根目录
-        const indexPath = isInTemplates ? '../papers.json' : 'papers.json';
-        const indexResponse = await fetch(indexPath);
-        if (!indexResponse.ok) {
-            throw new Error('无法加载论文索引');
+        // 加载论文列表
+        const response = await fetch(PAPERS_LIST_PATH);
+        if (!response.ok) {
+            throw new Error('无法加载论文列表');
         }
-        const indexData = await indexResponse.json();
+        const papersList = await response.json();
         
-        // 查找匹配的文件夹
-        let paperFolder = null;
-        
-        // 处理索引格式（可能是数组或字典）
-        let folderList;
-        if (Array.isArray(indexData)) {
-            // 旧格式：数组
-            folderList = indexData;
-        } else {
-            // 新格式：字典，提取 key（数字 ID）
-            folderList = Object.keys(indexData).sort();
+        if (!Array.isArray(papersList)) {
+            throw new Error('_papers.json 格式错误：应该是数组格式');
         }
         
-        // 首先尝试精确匹配（数字 ID）
-        if (folderList.includes(paperId)) {
-            paperFolder = paperId;
-        } else {
-            // 尝试在所有文件夹中搜索（通过 info.json 中的 id 字段）
-            for (const folderName of folderList) {
-                const infoPath = `${PAPERS_BASE_PATH}${folderName}/${INFO_FILE}`;
-                const response = await fetch(infoPath);
-                if (response.ok) {
-                    const data = await response.json();
-                    const fileId = data.id || folderName;
-                    if (fileId === paperId) {
-                        paperFolder = folderName;
-                        break;
-                    }
-                }
-            }
-        }
+        // 在列表中查找匹配的论文
+        const paper = papersList.find(p => p.id === paperId);
         
-        if (!paperFolder) {
+        if (!paper) {
             throw new Error(`未找到论文: ${paperId}`);
         }
         
-        // 加载论文基本信息
-        const infoPath = `${PAPERS_BASE_PATH}${paperFolder}/${INFO_FILE}`;
-        const response = await fetch(infoPath);
-        if (!response.ok) {
-            throw new Error(`无法加载论文文件: ${infoPath}`);
-        }
-        
-        const data = await response.json();
-        // 保存文件夹名称，用于后续加载详情
-        data.folderName = paperFolder;
-        
-        return data;
+        return paper;
     } catch (error) {
         console.error('加载论文基本信息失败:', error);
         throw error;
     }
 }
 
-// 加载 Markdown 文件
-async function loadMarkdownFile(folderName) {
+// 加载 Markdown 文件（从 papers/{id}.md）
+async function loadMarkdownFile(paperId) {
     try {
-        const markdownPath = `${PAPERS_BASE_PATH}${folderName}/${DETAIL_FILE}`;
+        const markdownPath = `${PAPERS_BASE_PATH}${paperId}.md`;
         const response = await fetch(markdownPath);
         
         if (!response.ok) {
-            console.warn(`Markdown 文件不存在: ${markdownPath}`);
-            return null;
+            // 如果 Markdown 文件不存在，返回 null（不是错误）
+            if (response.status === 404) {
+                return null;
+            }
+            throw new Error(`无法加载 Markdown 文件: ${response.status}`);
         }
         
         return await response.text();
@@ -207,7 +172,7 @@ async function loadPaperDetail() {
         renderBasicInfo(paperInfo);
         
         // 加载并渲染 Markdown
-        const markdownContent = await loadMarkdownFile(paperInfo.folderName);
+        const markdownContent = await loadMarkdownFile(paperId);
         await renderMarkdown(markdownContent, paperId);
         
         // 显示内容

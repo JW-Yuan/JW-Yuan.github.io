@@ -7,9 +7,8 @@ const DATASETS_CONFIG = SITE_CONFIG.datasets || {};
 const currentPath = window.location.pathname || window.location.href;
 const isInTemplates = currentPath.includes('templates/') || currentPath.includes('/templates/');
 const DATASETS_BASE_PATH = isInTemplates ? '../datasets/' : 'datasets/';
-// 索引文件现在在根目录
-const DATASETS_INDEX_PATH = isInTemplates ? '../datasets.json' : 'datasets.json';
-const INFO_FILE = DATASETS_CONFIG.files?.info || 'info.json';
+// 索引文件现在在 datasets 文件夹中，是列表格式，使用下划线前缀使其排在前面
+const DATASETS_INDEX_PATH = `${DATASETS_BASE_PATH}_datasets.json`;
 
 // 调试信息
 console.log('数据集路径配置:', {
@@ -40,62 +39,45 @@ function parseTasks(task) {
     return [];
 }
 
-// 加载数据集索引（现在是字典格式：{ "0001": "数据集名称", ... }）
-async function loadDatasetsIndex() {
+// 加载所有数据集（从 _datasets.json 列表格式）
+async function loadDatasetsList() {
     try {
-        console.log('正在加载数据集索引:', DATASETS_INDEX_PATH);
+        console.log('正在加载数据集列表:', DATASETS_INDEX_PATH);
         const response = await fetch(DATASETS_INDEX_PATH);
         if (!response.ok) {
-            console.error('加载索引失败:', {
+            console.error('加载数据集列表失败:', {
                 status: response.status,
                 statusText: response.statusText,
                 url: DATASETS_INDEX_PATH
             });
-            throw new Error(`Failed to load index: ${response.status} - ${response.statusText}`);
+            throw new Error(`Failed to load datasets: ${response.status} - ${response.statusText}`);
         }
-        const indexDict = await response.json();
-        // 如果是数组格式（旧格式），转换为字典格式
-        let folderList;
-        if (Array.isArray(indexDict)) {
-            // 旧格式：数组，直接使用
-            folderList = indexDict;
-            console.log('检测到旧格式索引（数组），找到', folderList.length, '个数据集');
-        } else {
-            // 新格式：字典，提取 key（数字 ID）
-            folderList = Object.keys(indexDict).sort();
-            console.log('成功加载数据集索引（字典格式），找到', folderList.length, '个数据集');
+        const datasetsList = await response.json();
+        
+        if (!Array.isArray(datasetsList)) {
+            throw new Error('_datasets.json 格式错误：应该是数组格式');
         }
-        return folderList;
+        
+        console.log('成功加载数据集列表，找到', datasetsList.length, '个数据集');
+        
+        // 处理每个数据集
+        return datasetsList.map(dataset => {
+            // 确保 id 字段存在
+            if (!dataset.id) {
+                console.warn('数据集缺少 id 字段:', dataset);
+                return null;
+            }
+            // 解析任务类型（支持数组和字符串格式）
+            dataset.tasks = parseTasks(dataset.task);
+            // 如果 task 是数组，转换为字符串用于显示
+            if (Array.isArray(dataset.task)) {
+                dataset.task = dataset.task.join(' + ');
+            }
+            return dataset;
+        }).filter(ds => ds !== null);
     } catch (error) {
-        console.error('加载数据集索引失败:', error);
+        console.error('加载数据集列表失败:', error);
         throw error;
-    }
-}
-
-// 加载单个数据集（从文件夹内的 info.json）
-async function loadDataset(folderName) {
-    try {
-        const infoPath = `${DATASETS_BASE_PATH}${folderName}/${INFO_FILE}`;
-        const response = await fetch(infoPath);
-        if (!response.ok) {
-            console.warn(`数据集 ${folderName} 的 ${INFO_FILE} 文件不存在或无法加载`);
-            return null;
-        }
-        const data = await response.json();
-        // 添加文件夹名称作为 id（如果没有 id）
-        if (!data.id) {
-            data.id = folderName;
-        }
-        // 解析任务类型（支持数组和字符串格式）
-        data.tasks = parseTasks(data.task);
-        // 如果 task 是字符串，保留原值用于显示；如果是数组，转换为字符串显示
-        if (Array.isArray(data.task)) {
-            data.task = data.task.join(' + ');
-        }
-        return data;
-    } catch (error) {
-        console.error(`加载数据集 ${folderName} 失败:`, error);
-        return null;
     }
 }
 
@@ -115,19 +97,8 @@ async function loadAllDatasets() {
         error.style.display = 'none';
         container.style.display = 'none';
         
-        // 加载索引（文件夹列表）
-        const folderList = await loadDatasetsIndex();
-        
-        if (!folderList || folderList.length === 0) {
-            throw new Error('数据集索引文件为空');
-        }
-        
-        // 并行加载所有数据集
-        const datasetPromises = folderList.map(folderName => loadDataset(folderName));
-        const datasets = await Promise.all(datasetPromises);
-        
-        // 过滤掉加载失败的数据集
-        allDatasets = datasets.filter(ds => ds !== null);
+        // 直接加载数据集列表（列表格式，包含所有信息）
+        allDatasets = await loadDatasetsList();
         
         if (allDatasets.length === 0) {
             throw new Error('没有成功加载任何数据集');

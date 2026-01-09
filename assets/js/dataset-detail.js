@@ -7,9 +7,8 @@ const DATASETS_CONFIG = SITE_CONFIG.datasets || {};
 const currentPath = window.location.pathname || window.location.href;
 const isInTemplates = currentPath.includes('templates/') || currentPath.includes('/templates/');
 const DATASETS_BASE_PATH = isInTemplates ? '../datasets/' : 'datasets/';
-const INFO_FILE = DATASETS_CONFIG.files?.info || 'info.json';
-const DETAIL_FILE = DATASETS_CONFIG.files?.detail || 'detail.md';
-const IMAGES_FOLDER = DATASETS_CONFIG.files?.images || 'img/';
+// 数据集列表文件（列表格式，使用下划线前缀使其排在前面）
+const DATASETS_LIST_PATH = `${DATASETS_BASE_PATH}_datasets.json`;
 
 // 从 URL 参数获取数据集 ID
 function getDatasetIdFromURL() {
@@ -18,76 +17,38 @@ function getDatasetIdFromURL() {
 }
 
 
-// 加载数据集基本信息
+// 加载数据集基本信息（从列表格式的 _datasets.json）
 async function loadDatasetBasicInfo(datasetId) {
     try {
-        // 先加载索引文件（字典格式：{ "0001": "数据集名称", ... }）
-        // 索引文件现在在根目录
-        const indexPath = isInTemplates ? '../datasets.json' : 'datasets.json';
-        const indexResponse = await fetch(indexPath);
-        if (!indexResponse.ok) {
-            throw new Error('无法加载数据集索引');
+        // 加载数据集列表
+        const response = await fetch(DATASETS_LIST_PATH);
+        if (!response.ok) {
+            throw new Error('无法加载数据集列表');
         }
-        const indexData = await indexResponse.json();
+        const datasetsList = await response.json();
         
-        // 查找匹配的文件夹
-        let datasetFolder = null;
-        
-        // 处理索引格式（可能是数组或字典）
-        let folderList;
-        if (Array.isArray(indexData)) {
-            // 旧格式：数组
-            folderList = indexData;
-        } else {
-            // 新格式：字典，提取 key（数字 ID）
-            folderList = Object.keys(indexData).sort();
+        if (!Array.isArray(datasetsList)) {
+            throw new Error('_datasets.json 格式错误：应该是数组格式');
         }
         
-        // 首先尝试精确匹配（数字 ID）
-        if (folderList.includes(datasetId)) {
-            datasetFolder = datasetId;
-        } else {
-            // 尝试在所有文件夹中搜索（通过 info.json 中的 id 字段）
-            for (const folderName of folderList) {
-                const infoPath = `${DATASETS_BASE_PATH}${folderName}/${INFO_FILE}`;
-                const response = await fetch(infoPath);
-                if (response.ok) {
-                    const data = await response.json();
-                    const fileId = data.id || folderName;
-                    if (fileId === datasetId) {
-                        datasetFolder = folderName;
-                        break;
-                    }
-                }
-            }
-        }
+        // 在列表中查找匹配的数据集
+        const dataset = datasetsList.find(ds => ds.id === datasetId);
         
-        if (!datasetFolder) {
+        if (!dataset) {
             throw new Error(`未找到数据集: ${datasetId}`);
         }
         
-        // 加载数据集基本信息
-        const infoPath = `${DATASETS_BASE_PATH}${datasetFolder}/${INFO_FILE}`;
-        const response = await fetch(infoPath);
-        if (!response.ok) {
-            throw new Error(`无法加载数据集文件: ${infoPath}`);
-        }
-        
-        const data = await response.json();
-        // 保存文件夹名称，用于后续加载详情和图片
-        data.folderName = datasetFolder;
-        
-        return data;
+        return dataset;
     } catch (error) {
         console.error('加载数据集基本信息失败:', error);
         throw error;
     }
 }
 
-// 加载 Markdown 文件
-async function loadMarkdownFile(folderName) {
+// 加载 Markdown 文件（从 datasets/{id}.md）
+async function loadMarkdownFile(datasetId) {
     try {
-        const markdownPath = `${DATASETS_BASE_PATH}${folderName}/${DETAIL_FILE}`;
+        const markdownPath = `${DATASETS_BASE_PATH}${datasetId}.md`;
         const response = await fetch(markdownPath);
         
         if (!response.ok) {
@@ -107,9 +68,11 @@ async function loadMarkdownFile(folderName) {
 }
 
 // 处理 Markdown 中的图片路径
-function processMarkdownImages(markdown, folderName) {
+function processMarkdownImages(markdown, datasetId) {
     // 处理相对路径的图片
-    // 将 ![alt](image.png) 转换为 ![alt](../datasets/folder-name/img/image.png)
+    // 将 ![alt](image.png) 转换为 ![alt](../datasets/{id}/img/image.png)
+    // 注意：新结构中，图片可能仍然在 {id}/img/ 文件夹中（如果用户保留了该结构）
+    // 或者直接在 datasets/ 文件夹中
     const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
     
     return markdown.replace(imageRegex, (match, alt, src) => {
@@ -123,8 +86,11 @@ function processMarkdownImages(markdown, folderName) {
             return match;
         }
         
-        // 如果是相对路径，转换为相对于数据集文件夹内 img 文件夹的路径
-        const imagePath = `${DATASETS_BASE_PATH}${folderName}/${IMAGES_FOLDER}${src}`;
+        // 如果是相对路径，尝试两种可能：
+        // 1. datasets/{id}/img/{src}（如果保留了文件夹结构）
+        // 2. datasets/{src}（如果图片直接在 datasets 文件夹中）
+        // 这里先尝试第一种，如果不存在可以回退到第二种
+        const imagePath = `${DATASETS_BASE_PATH}${datasetId}/img/${src}`;
         return `![${alt}](${imagePath})`;
     });
 }
@@ -217,7 +183,7 @@ function renderBasicInfo(dataset) {
 }
 
 // 渲染 Markdown 内容
-function renderMarkdown(markdownText, folderName) {
+function renderMarkdown(markdownText, datasetId) {
     const markdownDiv = document.getElementById('markdown-content');
     
     if (!markdownText || markdownText.trim() === '') {
@@ -226,7 +192,7 @@ function renderMarkdown(markdownText, folderName) {
     }
     
     // 处理图片路径
-    const processedMarkdown = processMarkdownImages(markdownText, folderName);
+    const processedMarkdown = processMarkdownImages(markdownText, datasetId);
     
     // 配置 marked 选项
     if (typeof marked !== 'undefined') {
@@ -283,10 +249,9 @@ async function loadAndRenderDatasetDetail() {
         
         // 加载数据集基本信息
         const basicInfo = await loadDatasetBasicInfo(datasetId);
-        const folderName = basicInfo.folderName || datasetId;
         
         // 加载 Markdown 文件
-        const markdownText = await loadMarkdownFile(folderName);
+        const markdownText = await loadMarkdownFile(datasetId);
         
         // 渲染标题
         document.getElementById('dataset-name').textContent = basicInfo.name;
@@ -307,7 +272,7 @@ async function loadAndRenderDatasetDetail() {
         renderBasicInfo(basicInfo);
         
         // 渲染 Markdown 内容
-        renderMarkdown(markdownText, folderName);
+        renderMarkdown(markdownText, datasetId);
         
         // 更新页面标题
         document.title = `${basicInfo.name} - 数据集详情 | YJW's Homepage`;
