@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YJW's Homepage - 论文详情</title>
+    <title>YJW's Homepage - 知识点详情</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/paper-detail.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -34,13 +34,13 @@
             <!-- 加载状态 -->
             <div id="loading" class="loading">
                 <i class="fas fa-spinner"></i>
-                <p class="loading-text">正在加载论文详情...</p>
+                <p class="loading-text">正在加载知识点详情...</p>
             </div>
 
             <!-- 错误信息 -->
             <div id="error" class="error-message" style="display: none;">
                 <i class="fas fa-exclamation-triangle"></i>
-                <p class="error-text">加载论文详情失败，请稍后重试</p>
+                <p class="error-text">加载知识点详情失败，请稍后重试</p>
             </div>
 
             <!-- 详情内容 -->
@@ -48,20 +48,24 @@
                 <!-- 返回按钮 -->
                 <div class="back-button">
                     <a href="papers.html" class="btn-back">
-                        <i class="fas fa-arrow-left"></i> 返回论文列表
+                        <i class="fas fa-arrow-left"></i> 返回知识点列表
                     </a>
                 </div>
 
-                <!-- 论文标题和基本信息 -->
+                <!-- 知识点标题和基本信息 -->
                 <div class="paper-header">
                     <h1 class="paper-title" id="paper-title">
-                        <i class="fas fa-file-alt"></i>
+                        <i class="fas fa-lightbulb"></i>
                         <span id="paper-name"></span>
-                        <span id="paper-year" class="paper-year-badge"></span>
                     </h1>
                     <div class="paper-meta-header" id="paper-meta-header">
                         <!-- 元信息标签 -->
                     </div>
+                </div>
+
+                <!-- 相关论文区域 -->
+                <div class="info-card" id="papers-section">
+                    <!-- 相关论文列表将在此处渲染 -->
                 </div>
 
                 <!-- Markdown 渲染区域 -->

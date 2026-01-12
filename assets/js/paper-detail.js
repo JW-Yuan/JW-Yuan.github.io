@@ -1,52 +1,52 @@
-// 论文详情页面专用 JavaScript
+// 知识点详情页面专用 JavaScript
 
-// 从配置读取论文路径
-const PAPERS_CONFIG = SITE_CONFIG.papers || {};
+// 从配置读取知识点路径
+const KNOWLEDGE_POINTS_CONFIG = SITE_CONFIG.papers || {};
 // 根据当前页面位置确定路径
 const currentPath = window.location.pathname || window.location.href;
 const isInTemplates = currentPath.includes('templates/') || currentPath.includes('/templates/');
-const PAPERS_BASE_PATH = isInTemplates ? '../papers/' : 'papers/';
-// 论文列表文件（列表格式，使用下划线前缀使其排在前面）
-const PAPERS_LIST_PATH = `${PAPERS_BASE_PATH}_papers.json`;
+const KNOWLEDGE_POINTS_BASE_PATH = isInTemplates ? '../papers/' : 'papers/';
+// 知识点列表文件（列表格式，使用下划线前缀使其排在前面）
+const KNOWLEDGE_POINTS_LIST_PATH = `${KNOWLEDGE_POINTS_BASE_PATH}_papers.json`;
 
-// 从 URL 参数获取论文 ID
-function getPaperIdFromURL() {
+// 从 URL 参数获取知识点 ID
+function getKnowledgePointIdFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('id');
 }
 
-// 加载论文基本信息（从列表格式的 _papers.json）
-async function loadPaperBasicInfo(paperId) {
+// 加载知识点基本信息（从列表格式的 _papers.json）
+async function loadKnowledgePointBasicInfo(kpId) {
     try {
-        // 加载论文列表
-        const response = await fetch(PAPERS_LIST_PATH);
+        // 加载知识点列表
+        const response = await fetch(KNOWLEDGE_POINTS_LIST_PATH);
         if (!response.ok) {
-            throw new Error('无法加载论文列表');
+            throw new Error('无法加载知识点列表');
         }
-        const papersList = await response.json();
+        const knowledgePointsList = await response.json();
         
-        if (!Array.isArray(papersList)) {
+        if (!Array.isArray(knowledgePointsList)) {
             throw new Error('_papers.json 格式错误：应该是数组格式');
         }
         
-        // 在列表中查找匹配的论文
-        const paper = papersList.find(p => p.id === paperId);
+        // 在列表中查找匹配的知识点
+        const kp = knowledgePointsList.find(p => p.id === kpId);
         
-        if (!paper) {
-            throw new Error(`未找到论文: ${paperId}`);
+        if (!kp) {
+            throw new Error(`未找到知识点: ${kpId}`);
         }
         
-        return paper;
+        return kp;
     } catch (error) {
-        console.error('加载论文基本信息失败:', error);
+        console.error('加载知识点基本信息失败:', error);
         throw error;
     }
 }
 
 // 加载 Markdown 文件（从 papers/{id}.md）
-async function loadMarkdownFile(paperId) {
+async function loadMarkdownFile(kpId) {
     try {
-        const markdownPath = `${PAPERS_BASE_PATH}${paperId}.md`;
+        const markdownPath = `${KNOWLEDGE_POINTS_BASE_PATH}${kpId}.md`;
         const response = await fetch(markdownPath);
         
         if (!response.ok) {
@@ -65,7 +65,7 @@ async function loadMarkdownFile(paperId) {
 }
 
 // 渲染 Markdown 内容
-async function renderMarkdown(markdownContent, paperId) {
+async function renderMarkdown(markdownContent, kpId) {
     const markdownContainer = document.getElementById('markdown-container');
     if (!markdownContent) {
         markdownContainer.innerHTML = '<p>暂无详细信息。</p>';
@@ -77,74 +77,80 @@ async function renderMarkdown(markdownContent, paperId) {
 }
 
 // 渲染基本信息
-function renderBasicInfo(paper) {
+function renderBasicInfo(kp) {
     // 设置标题
-    document.getElementById('paper-name').textContent = paper.name;
+    document.getElementById('paper-name').textContent = kp.title || '未命名知识点';
     
-    // 设置年份
-    if (paper.year) {
-        const yearBadge = document.getElementById('paper-year');
-        yearBadge.textContent = paper.year;
-        yearBadge.style.display = 'inline-block';
-    }
-    
-    // 设置元信息标签
+    // 设置分类和标签
     const metaHeader = document.getElementById('paper-meta-header');
     metaHeader.innerHTML = '';
     
-    if (paper.authors) {
-        const authorTag = document.createElement('span');
-        authorTag.className = 'meta-tag';
-        authorTag.innerHTML = `<i class="fas fa-users"></i> ${paper.authors}`;
-        metaHeader.appendChild(authorTag);
+    if (kp.category) {
+        const categoryTag = document.createElement('span');
+        categoryTag.className = 'meta-tag';
+        categoryTag.innerHTML = `<i class="fas fa-folder"></i> ${kp.category}`;
+        metaHeader.appendChild(categoryTag);
     }
     
-    if (paper.venue) {
-        const venueTag = document.createElement('span');
-        venueTag.className = 'meta-tag';
-        venueTag.innerHTML = `<i class="fas fa-building"></i> ${paper.venue}`;
-        metaHeader.appendChild(venueTag);
+    if (kp.tags && kp.tags.length > 0) {
+        kp.tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'meta-tag';
+            tagElement.innerHTML = `<i class="fas fa-tag"></i> ${tag}`;
+            metaHeader.appendChild(tagElement);
+        });
     }
     
-    if (paper.task) {
-        const taskText = Array.isArray(paper.task) ? paper.task.join(', ') : paper.task;
-        const taskTag = document.createElement('span');
-        taskTag.className = 'meta-tag';
-        taskTag.innerHTML = `<i class="fas fa-tasks"></i> ${taskText}`;
-        metaHeader.appendChild(taskTag);
-    }
-    
-    // 添加链接
-    if (paper.links) {
-        const linksDiv = document.createElement('div');
-        linksDiv.className = 'paper-links-header';
-        
-        if (paper.links.pdf) {
-            const pdfLink = document.createElement('a');
-            pdfLink.href = paper.links.pdf;
-            pdfLink.target = '_blank';
-            pdfLink.className = 'link-btn';
-            pdfLink.innerHTML = '<i class="fas fa-file-pdf"></i> PDF';
-            linksDiv.appendChild(pdfLink);
-        }
-        
-        if (paper.links.code) {
-            const codeLink = document.createElement('a');
-            codeLink.href = paper.links.code;
-            codeLink.target = '_blank';
-            codeLink.className = 'link-btn';
-            codeLink.innerHTML = '<i class="fab fa-github"></i> Code';
-            linksDiv.appendChild(codeLink);
-        }
-        
-        if (linksDiv.children.length > 0) {
-            metaHeader.appendChild(linksDiv);
+    // 渲染相关论文列表
+    if (kp.papers && kp.papers.length > 0) {
+        const papersSection = document.getElementById('papers-section');
+        if (papersSection) {
+            papersSection.innerHTML = `
+                <h3><i class="fas fa-book"></i> 相关论文 (${kp.papers.length} 篇)</h3>
+                <div class="papers-list">
+                    ${kp.papers.map((paper, index) => {
+                        const displayName = paper.shortName || paper.name;
+                        const year = paper.year ? ` (${paper.year})` : '';
+                        const authors = paper.authors ? ` - ${paper.authors}` : '';
+                        const venue = paper.venue ? ` [${paper.venue}]` : '';
+                        const taskText = paper.task ? (Array.isArray(paper.task) ? paper.task.join(', ') : paper.task) : '';
+                        
+                        let linksHtml = '';
+                        if (paper.links) {
+                            const linkItems = [];
+                            if (paper.links.pdf) {
+                                linkItems.push(`<a href="${paper.links.pdf}" target="_blank" class="link-btn"><i class="fas fa-file-pdf"></i> PDF</a>`);
+                            }
+                            if (paper.links.code) {
+                                linkItems.push(`<a href="${paper.links.code}" target="_blank" class="link-btn"><i class="fab fa-github"></i> Code</a>`);
+                            }
+                            if (linkItems.length > 0) {
+                                linksHtml = `<div class="paper-links">${linkItems.join(' ')}</div>`;
+                            }
+                        }
+                        
+                        return `
+                            <div class="paper-item">
+                                <div class="paper-item-header">
+                                    <h4>${index + 1}. ${displayName}${year}</h4>
+                                </div>
+                                <div class="paper-item-info">
+                                    ${authors ? `<div class="info-row"><i class="fas fa-users"></i> ${authors}</div>` : ''}
+                                    ${venue ? `<div class="info-row"><i class="fas fa-building"></i> ${venue}</div>` : ''}
+                                    ${taskText ? `<div class="info-row"><i class="fas fa-tasks"></i> ${taskText}</div>` : ''}
+                                </div>
+                                ${linksHtml}
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
         }
     }
 }
 
-// 加载并显示论文详情
-async function loadPaperDetail() {
+// 加载并显示知识点详情
+async function loadKnowledgePointDetail() {
     try {
         const loading = document.getElementById('loading');
         const error = document.getElementById('error');
@@ -159,28 +165,28 @@ async function loadPaperDetail() {
         error.style.display = 'none';
         content.style.display = 'none';
         
-        // 从 URL 获取论文 ID
-        const paperId = getPaperIdFromURL();
-        if (!paperId) {
-            throw new Error('未指定论文 ID');
+        // 从 URL 获取知识点 ID
+        const kpId = getKnowledgePointIdFromURL();
+        if (!kpId) {
+            throw new Error('未指定知识点 ID');
         }
         
         // 加载基本信息
-        const paperInfo = await loadPaperBasicInfo(paperId);
+        const kpInfo = await loadKnowledgePointBasicInfo(kpId);
         
         // 渲染基本信息
-        renderBasicInfo(paperInfo);
+        renderBasicInfo(kpInfo);
         
         // 加载并渲染 Markdown
-        const markdownContent = await loadMarkdownFile(paperId);
-        await renderMarkdown(markdownContent, paperId);
+        const markdownContent = await loadMarkdownFile(kpId);
+        await renderMarkdown(markdownContent, kpId);
         
         // 显示内容
         loading.style.display = 'none';
         content.style.display = 'block';
         
     } catch (error) {
-        console.error('加载论文详情失败:', error);
+        console.error('加载知识点详情失败:', error);
         const loading = document.getElementById('loading');
         const errorDiv = document.getElementById('error');
         loading.style.display = 'none';
@@ -197,6 +203,5 @@ async function loadPaperDetail() {
 
 // 页面加载时执行
 window.addEventListener('DOMContentLoaded', () => {
-    loadPaperDetail();
+    loadKnowledgePointDetail();
 });
-

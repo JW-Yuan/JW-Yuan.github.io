@@ -73,13 +73,13 @@
     background: var(--primary-color);
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 8px rgba(45, 80, 22, 0.3);
 }
 
 .mode-btn.active {
     background: var(--primary-color);
     color: white;
-    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 8px rgba(45, 80, 22, 0.3);
 }
 
 .mode-content {

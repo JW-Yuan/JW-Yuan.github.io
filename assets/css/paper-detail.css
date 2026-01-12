@@ -269,6 +269,56 @@
     margin-top: 1rem;
 }
 
+/* 相关论文列表样式 */
+.papers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.paper-item {
+    padding: 1.5rem;
+    background: var(--bg-light);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    transition: var(--transition);
+}
+
+.paper-item:hover {
+    box-shadow: var(--shadow);
+    transform: translateX(4px);
+}
+
+.paper-item-header h4 {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.paper-item-info {
+    margin-bottom: 1rem;
+}
+
+.paper-item-info .info-row {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.paper-item-info .info-row i {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+    width: 16px;
+}
+
+.paper-links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .paper-detail-section {

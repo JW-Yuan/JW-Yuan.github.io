@@ -26,9 +26,9 @@ const SITE_CONFIG = {
             icon: 'fas fa-database'
         },
         {
-            name: '论文心得',
+            name: '知识点',
             path: 'templates/papers.html',
-            icon: 'fas fa-book'
+            icon: 'fas fa-lightbulb'
         }
     ],
     

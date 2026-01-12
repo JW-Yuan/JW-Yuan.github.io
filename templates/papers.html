@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YJW's Homepage - 论文阅读心得</title>
+    <title>YJW's Homepage - 知识点总结</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/papers.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -30,8 +30,8 @@
     <section class="section papers-section">
         <div class="container">
             <h2 class="section-title">
-                <i class="fas fa-book-open"></i>
-                论文阅读心得
+                <i class="fas fa-lightbulb"></i>
+                知识点总结
             </h2>
 
             <!-- 筛选器 -->
@@ -51,6 +51,14 @@
                     </div>
                 </div>
                 <div class="filter-group">
+                    <label for="filter-category">
+                        <i class="fas fa-filter"></i> 分类
+                    </label>
+                    <select id="filter-category" class="filter-select">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <div class="filter-group">
                     <label for="filter-year">
                         <i class="fas fa-filter"></i> 年份
                     </label>
@@ -60,9 +68,9 @@
                 </div>
                 <div class="filter-group">
                     <label for="search-name">
-                        <i class="fas fa-search"></i> 搜索名称
+                        <i class="fas fa-search"></i> 搜索
                     </label>
-                    <input type="text" id="search-name" class="filter-input" placeholder="输入论文名称...">
+                    <input type="text" id="search-name" class="filter-input" placeholder="输入知识点标题、摘要或标签...">
                 </div>
                 <button id="reset-filters" class="reset-btn">
                     <i class="fas fa-redo"></i> 重置
@@ -72,30 +80,30 @@
             <!-- 加载状态 -->
             <div id="loading" class="loading">
                 <i class="fas fa-spinner"></i>
-                <p class="loading-text">正在加载论文...</p>
+                <p class="loading-text">正在加载知识点...</p>
             </div>
 
             <!-- 错误信息 -->
             <div id="error" class="error-message" style="display: none;">
                 <i class="fas fa-exclamation-triangle"></i>
-                <p class="error-text">加载论文失败，请稍后重试</p>
+                <p class="error-text">加载知识点失败，请稍后重试</p>
             </div>
 
             <!-- 论文表格 -->
             <div id="papers-table-container" style="display: none;">
                 <div class="table-info">
-                    <span id="paper-count">共 <strong>0</strong> 篇论文</span>
+                    <span id="paper-count">共 <strong>0</strong> 个知识点</span>
                     <div class="table-hint">
                         <i class="fas fa-info-circle"></i>
-                        <span>提示：点击论文名称可以查看详细信息</span>
+                        <span>提示：点击知识点标题可以查看详细信息（包含相关论文）</span>
                     </div>
                 </div>
                 <div class="table-wrapper">
                     <table id="papers-table" class="papers-table">
                         <thead>
                             <tr>
-                                <th>论文名称 (年份)</th>
-                                <th>作者/会议</th>
+                                <th>知识点标题</th>
+                                <th>相关论文</th>
                                 <th>其他信息</th>
                             </tr>
                         </thead>

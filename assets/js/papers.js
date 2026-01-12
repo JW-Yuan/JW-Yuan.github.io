@@ -1,25 +1,25 @@
-// 论文页面专用 JavaScript
+// 知识点页面专用 JavaScript
 
-// 从配置读取论文路径
-const PAPERS_CONFIG = SITE_CONFIG.papers || {};
+// 从配置读取知识点路径
+const KNOWLEDGE_POINTS_CONFIG = SITE_CONFIG.papers || {};
 // 根据当前页面位置确定路径
 const currentPath = window.location.pathname || window.location.href;
 const isInTemplates = currentPath.includes('templates/') || currentPath.includes('/templates/');
-const PAPERS_BASE_PATH = isInTemplates ? '../papers/' : 'papers/';
+const KNOWLEDGE_POINTS_BASE_PATH = isInTemplates ? '../papers/' : 'papers/';
 // 索引文件现在在 papers 文件夹中，是列表格式，使用下划线前缀使其排在前面
-const PAPERS_INDEX_PATH = `${PAPERS_BASE_PATH}_papers.json`;
+const KNOWLEDGE_POINTS_INDEX_PATH = `${KNOWLEDGE_POINTS_BASE_PATH}_papers.json`;
 
 // 调试信息
-console.log('论文路径配置:', {
+console.log('知识点路径配置:', {
     currentPath: currentPath,
     isInTemplates: isInTemplates,
-    PAPERS_BASE_PATH: PAPERS_BASE_PATH,
-    PAPERS_INDEX_PATH: PAPERS_INDEX_PATH
+    KNOWLEDGE_POINTS_BASE_PATH: KNOWLEDGE_POINTS_BASE_PATH,
+    KNOWLEDGE_POINTS_INDEX_PATH: KNOWLEDGE_POINTS_INDEX_PATH
 });
 
-// 存储所有论文
-let allPapers = [];
-let filteredPapers = [];
+// 存储所有知识点
+let allKnowledgePoints = [];
+let filteredKnowledgePoints = [];
 
 // 解析任务类型（支持字符串和数组格式）
 function parseTasks(task) {
@@ -38,50 +38,75 @@ function parseTasks(task) {
     return [];
 }
 
-// 加载所有论文（从 _papers.json 列表格式）
-async function loadPapersList() {
+// 从知识点中提取所有任务类型
+function extractAllTasks(knowledgePoint) {
+    const taskSet = new Set();
+    if (knowledgePoint.papers && Array.isArray(knowledgePoint.papers)) {
+        knowledgePoint.papers.forEach(paper => {
+            if (paper.task) {
+                const tasks = parseTasks(paper.task);
+                tasks.forEach(task => taskSet.add(task));
+            }
+        });
+    }
+    return Array.from(taskSet);
+}
+
+// 从知识点中提取所有年份
+function extractAllYears(knowledgePoint) {
+    const yearSet = new Set();
+    if (knowledgePoint.papers && Array.isArray(knowledgePoint.papers)) {
+        knowledgePoint.papers.forEach(paper => {
+            if (paper.year) {
+                yearSet.add(paper.year);
+            }
+        });
+    }
+    return Array.from(yearSet);
+}
+
+// 加载所有知识点（从 _papers.json 列表格式）
+async function loadKnowledgePointsList() {
     try {
-        console.log('正在加载论文列表:', PAPERS_INDEX_PATH);
-        const response = await fetch(PAPERS_INDEX_PATH);
+        console.log('正在加载知识点列表:', KNOWLEDGE_POINTS_INDEX_PATH);
+        const response = await fetch(KNOWLEDGE_POINTS_INDEX_PATH);
         if (!response.ok) {
-            console.error('加载论文列表失败:', {
+            console.error('加载知识点列表失败:', {
                 status: response.status,
                 statusText: response.statusText,
-                url: PAPERS_INDEX_PATH
+                url: KNOWLEDGE_POINTS_INDEX_PATH
             });
-            throw new Error(`Failed to load papers: ${response.status} - ${response.statusText}`);
+            throw new Error(`Failed to load knowledge points: ${response.status} - ${response.statusText}`);
         }
-        const papersList = await response.json();
+        const knowledgePointsList = await response.json();
         
-        if (!Array.isArray(papersList)) {
+        if (!Array.isArray(knowledgePointsList)) {
             throw new Error('_papers.json 格式错误：应该是数组格式');
         }
         
-        console.log('成功加载论文列表，找到', papersList.length, '篇论文');
+        console.log('成功加载知识点列表，找到', knowledgePointsList.length, '个知识点');
         
-        // 处理每个论文
-        return papersList.map(paper => {
+        // 处理每个知识点
+        return knowledgePointsList.map(kp => {
             // 确保 id 字段存在
-            if (!paper.id) {
-                console.warn('论文缺少 id 字段:', paper);
+            if (!kp.id) {
+                console.warn('知识点缺少 id 字段:', kp);
                 return null;
             }
-            // 解析任务类型（支持数组和字符串格式）
-            paper.tasks = parseTasks(paper.task);
-            // 如果 task 是数组，转换为字符串用于显示
-            if (Array.isArray(paper.task)) {
-                paper.task = paper.task.join(' + ');
-            }
-            return paper;
-        }).filter(p => p !== null);
+            // 提取所有任务类型
+            kp.allTasks = extractAllTasks(kp);
+            // 提取所有年份
+            kp.allYears = extractAllYears(kp);
+            return kp;
+        }).filter(kp => kp !== null);
     } catch (error) {
-        console.error('加载论文列表失败:', error);
+        console.error('加载知识点列表失败:', error);
         throw error;
     }
 }
 
-// 加载所有论文
-async function loadAllPapers() {
+// 加载所有知识点
+async function loadAllKnowledgePoints() {
     try {
         const loading = document.getElementById('loading');
         const error = document.getElementById('error');
@@ -96,31 +121,31 @@ async function loadAllPapers() {
         error.style.display = 'none';
         container.style.display = 'none';
         
-        // 直接加载论文列表（列表格式，包含所有信息）
-        allPapers = await loadPapersList();
+        // 直接加载知识点列表（列表格式，包含所有信息）
+        allKnowledgePoints = await loadKnowledgePointsList();
         
-        if (allPapers.length === 0) {
-            throw new Error('没有成功加载任何论文');
+        if (allKnowledgePoints.length === 0) {
+            throw new Error('没有成功加载任何知识点');
         }
         
-        // 按数据集名称的字符顺序排序
-        allPapers.sort((a, b) => {
-            const nameA = (a.name || '').toLowerCase();
-            const nameB = (b.name || '').toLowerCase();
-            return nameA.localeCompare(nameB, 'zh-CN');
+        // 按知识点标题的字符顺序排序
+        allKnowledgePoints.sort((a, b) => {
+            const titleA = (a.title || '').toLowerCase();
+            const titleB = (b.title || '').toLowerCase();
+            return titleA.localeCompare(titleB, 'zh-CN');
         });
         
         // 初始化筛选器
         initializeFilters();
         
-        // 应用筛选（初始显示所有论文）
+        // 应用筛选（初始显示所有知识点）
         applyFilters();
         
         loading.style.display = 'none';
         container.style.display = 'block';
         
     } catch (error) {
-        console.error('加载论文失败:', error);
+        console.error('加载知识点失败:', error);
         const loading = document.getElementById('loading');
         const errorDiv = document.getElementById('error');
         loading.style.display = 'none';
@@ -140,15 +165,20 @@ function initializeFilters() {
     // 收集所有唯一值
     const taskSet = new Set();
     const yearSet = new Set();
+    const categorySet = new Set();
     
-    allPapers.forEach(paper => {
+    allKnowledgePoints.forEach(kp => {
         // 任务类型
-        if (paper.tasks && Array.isArray(paper.tasks)) {
-            paper.tasks.forEach(task => taskSet.add(task));
+        if (kp.allTasks && Array.isArray(kp.allTasks)) {
+            kp.allTasks.forEach(task => taskSet.add(task));
         }
         // 年份
-        if (paper.year) {
-            yearSet.add(paper.year);
+        if (kp.allYears && Array.isArray(kp.allYears)) {
+            kp.allYears.forEach(year => yearSet.add(year));
+        }
+        // 分类
+        if (kp.category) {
+            categorySet.add(kp.category);
         }
     });
     
@@ -158,8 +188,18 @@ function initializeFilters() {
     // 填充年份下拉框
     populateSelect('filter-year', Array.from(yearSet).sort().reverse());
     
+    // 填充分类下拉框（如果有）
+    const categorySelect = document.getElementById('filter-category');
+    if (categorySelect) {
+        populateSelect('filter-category', Array.from(categorySet).sort());
+    }
+    
     // 绑定事件监听器
     document.getElementById('filter-year').addEventListener('change', applyFilters);
+    const categoryFilter = document.getElementById('filter-category');
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', applyFilters);
+    }
     document.getElementById('search-name').addEventListener('input', applyFilters);
     document.getElementById('reset-filters').addEventListener('click', resetFilters);
 }
@@ -258,39 +298,55 @@ function populateSelect(selectId, options) {
 function applyFilters() {
     const yearFilter = document.getElementById('filter-year').value;
     const searchName = document.getElementById('search-name').value.toLowerCase().trim();
+    const categoryFilter = document.getElementById('filter-category');
+    const categoryValue = categoryFilter ? categoryFilter.value : '';
     
     // 获取选中的任务类型
     const selectedTasks = Array.from(document.querySelectorAll('#filter-task-container input[type="checkbox"]:checked'))
         .map(cb => cb.value.toLowerCase());
     
-    filteredPapers = allPapers.filter(paper => {
-        // 年份筛选
-        if (yearFilter && String(paper.year) !== yearFilter) return false;
+    filteredKnowledgePoints = allKnowledgePoints.filter(kp => {
+        // 年份筛选（如果知识点的任何论文匹配）
+        if (yearFilter) {
+            const hasMatchingYear = kp.allYears && kp.allYears.includes(parseInt(yearFilter));
+            if (!hasMatchingYear) return false;
+        }
         
-        // 任务筛选（多选）- 论文必须包含所有选中的任务
+        // 任务筛选（多选）- 知识点必须包含所有选中的任务
         if (selectedTasks.length > 0) {
-            const paperTasks = paper.tasks || [];
+            const kpTasks = kp.allTasks || [];
             const hasAllTasks = selectedTasks.every(selectedTask => 
-                paperTasks.some(pt => pt === selectedTask)
+                kpTasks.some(kt => kt === selectedTask)
             );
             if (!hasAllTasks) return false;
         }
         
-        // 名称搜索
-        if (searchName && !paper.name.toLowerCase().includes(searchName)) return false;
+        // 分类筛选
+        if (categoryValue && kp.category !== categoryValue) return false;
+        
+        // 名称搜索（搜索标题、摘要、标签等）
+        if (searchName) {
+            const searchText = [
+                kp.title || '',
+                kp.summary || '',
+                kp.insights || '',
+                (kp.tags || []).join(' ')
+            ].join(' ').toLowerCase();
+            if (!searchText.includes(searchName)) return false;
+        }
         
         return true;
     });
     
-    // 按数据集名称的字符顺序排序
-    filteredPapers.sort((a, b) => {
-        const nameA = (a.name || '').toLowerCase();
-        const nameB = (b.name || '').toLowerCase();
-        return nameA.localeCompare(nameB, 'zh-CN');
+    // 按知识点标题的字符顺序排序
+    filteredKnowledgePoints.sort((a, b) => {
+        const titleA = (a.title || '').toLowerCase();
+        const titleB = (b.title || '').toLowerCase();
+        return titleA.localeCompare(titleB, 'zh-CN');
     });
     
     // 更新计数
-    document.getElementById('paper-count').innerHTML = `共 <strong>${filteredPapers.length}</strong> 篇论文`;
+    document.getElementById('paper-count').innerHTML = `共 <strong>${filteredKnowledgePoints.length}</strong> 个知识点`;
     
     // 渲染表格
     renderTable();
@@ -300,6 +356,10 @@ function applyFilters() {
 function resetFilters() {
     document.getElementById('filter-year').value = '';
     document.getElementById('search-name').value = '';
+    const categoryFilter = document.getElementById('filter-category');
+    if (categoryFilter) {
+        categoryFilter.value = '';
+    }
     
     // 取消所有任务类型复选框
     document.querySelectorAll('#filter-task-container input[type="checkbox"]').forEach(cb => {
@@ -315,96 +375,82 @@ function renderTable() {
     const tbody = document.getElementById('papers-tbody');
     tbody.innerHTML = '';
     
-    if (filteredPapers.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3" class="no-data">没有找到匹配的论文</td></tr>';
+    if (filteredKnowledgePoints.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3" class="no-data">没有找到匹配的知识点</td></tr>';
         return;
     }
     
-    filteredPapers.forEach((paper, index) => {
+    filteredKnowledgePoints.forEach((kp, index) => {
         const row = document.createElement('tr');
         
-        // 第一列：论文名称 (年份) - 可点击跳转到详情页
-        // 显示缩写，如果有 shortName 就用 shortName，否则用 name
-        const nameCell = document.createElement('td');
-        nameCell.className = 'paper-name-cell';
-        const paperId = paper.id || paper.name.toLowerCase().replace(/\s+/g, '-');
-        const displayName = paper.shortName || paper.name; // 优先使用 shortName
-        nameCell.innerHTML = `
+        // 第一列：知识点标题 - 可点击跳转到详情页
+        const titleCell = document.createElement('td');
+        titleCell.className = 'paper-name-cell';
+        const kpId = kp.id;
+        titleCell.innerHTML = `
             <div class="paper-name">
-                <a href="paper-detail.html?id=${paperId}" class="paper-name-link">
-                    <strong>${displayName}</strong>
-                    ${paper.year ? `<span class="paper-year">(${paper.year})</span>` : ''}
+                <a href="paper-detail.html?id=${kpId}" class="paper-name-link">
+                    <strong>${kp.title || '未命名知识点'}</strong>
                     <i class="fas fa-external-link-alt link-icon"></i>
                 </a>
             </div>
             <div class="paper-meta">
-                ${paper.task ? `<span class="meta-tag"><i class="fas fa-tasks"></i> ${Array.isArray(paper.task) ? paper.task.join(' + ') : paper.task}</span>` : ''}
+                ${kp.category ? `<span class="meta-tag"><i class="fas fa-folder"></i> ${kp.category}</span>` : ''}
+                ${kp.allTasks && kp.allTasks.length > 0 ? `<span class="meta-tag"><i class="fas fa-tasks"></i> ${kp.allTasks.join(', ')}</span>` : ''}
+                ${kp.papers && kp.papers.length > 0 ? `<span class="meta-tag"><i class="fas fa-book"></i> ${kp.papers.length} 篇论文</span>` : ''}
             </div>
         `;
         
-        // 第二列：作者/会议
-        const authorsCell = document.createElement('td');
-        authorsCell.className = 'paper-authors-cell';
-        authorsCell.innerHTML = `
-            ${paper.authors ? `
-                <div class="info-row">
-                    <i class="fas fa-users"></i>
-                    <span>${paper.authors}</span>
-                </div>
-            ` : ''}
-            ${paper.venue ? `
-                <div class="info-row">
-                    <i class="fas fa-building"></i>
-                    <span>${paper.venue}</span>
-                </div>
-            ` : ''}
-        `;
+        // 第二列：相关论文
+        const papersCell = document.createElement('td');
+        papersCell.className = 'paper-authors-cell';
+        if (kp.papers && kp.papers.length > 0) {
+            const papersHtml = kp.papers.slice(0, 3).map(paper => {
+                const displayName = paper.shortName || paper.name;
+                const year = paper.year ? ` (${paper.year})` : '';
+                return `<div class="info-row">
+                    <i class="fas fa-file-alt"></i>
+                    <span>${displayName}${year}</span>
+                </div>`;
+            }).join('');
+            const morePapers = kp.papers.length > 3 ? `<div class="info-row" style="color: var(--text-light); font-size: 0.85rem;">还有 ${kp.papers.length - 3} 篇论文...</div>` : '';
+            papersCell.innerHTML = papersHtml + morePapers;
+        } else {
+            papersCell.innerHTML = '<span class="no-info">暂无相关论文</span>';
+        }
         
         // 第三列：其他信息
         const infoCell = document.createElement('td');
         infoCell.className = 'paper-info-cell';
         const infoHtml = [];
-        // 如果有全称（name）且与显示名称（shortName）不同，则显示全称
-        if (paper.name && paper.shortName && paper.name !== paper.shortName) {
-            infoHtml.push(`
-                <div class="info-row">
-                    <i class="fas fa-file-alt"></i>
-                    <strong>全称：</strong>${paper.name}
-                </div>
-            `);
-        }
-        if (paper.summary) {
+        if (kp.summary) {
             infoHtml.push(`
                 <div class="info-row">
                     <i class="fas fa-lightbulb"></i>
-                    <strong>核心思想：</strong>${paper.summary.length > 100 ? paper.summary.substring(0, 100) + '...' : paper.summary}
+                    <strong>核心思想：</strong>${kp.summary.length > 100 ? kp.summary.substring(0, 100) + '...' : kp.summary}
                 </div>
             `);
         }
-        if (paper.insights) {
+        if (kp.insights) {
             infoHtml.push(`
                 <div class="info-row">
                     <i class="fas fa-comment-dots"></i>
-                    <strong>个人心得：</strong>${paper.insights.length > 100 ? paper.insights.substring(0, 100) + '...' : paper.insights}
+                    <strong>个人心得：</strong>${kp.insights.length > 100 ? kp.insights.substring(0, 100) + '...' : kp.insights}
                 </div>
             `);
         }
-        if (paper.links) {
-            const linksHtml = [];
-            if (paper.links.pdf) {
-                linksHtml.push(`<a href="${paper.links.pdf}" target="_blank" class="link-btn"><i class="fas fa-file-pdf"></i> PDF</a>`);
-            }
-            if (paper.links.code) {
-                linksHtml.push(`<a href="${paper.links.code}" target="_blank" class="link-btn"><i class="fab fa-github"></i> Code</a>`);
-            }
-            if (linksHtml.length > 0) {
-                infoHtml.push(`<div class="info-row">${linksHtml.join(' ')}</div>`);
-            }
+        if (kp.tags && kp.tags.length > 0) {
+            infoHtml.push(`
+                <div class="info-row">
+                    <i class="fas fa-tags"></i>
+                    <strong>标签：</strong>${kp.tags.join(', ')}
+                </div>
+            `);
         }
         infoCell.innerHTML = infoHtml.length > 0 ? infoHtml.join('') : '<span class="no-info">暂无其他信息</span>';
         
-        row.appendChild(nameCell);
-        row.appendChild(authorsCell);
+        row.appendChild(titleCell);
+        row.appendChild(papersCell);
         row.appendChild(infoCell);
         tbody.appendChild(row);
     });
@@ -412,5 +458,5 @@ function renderTable() {
 
 // 页面加载时执行
 window.addEventListener('DOMContentLoaded', () => {
-    loadAllPapers();
+    loadAllKnowledgePoints();
 });

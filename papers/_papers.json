@@ -1,53 +1,59 @@
 [
   {
     "id": "0001",
-    "name": "histopathology datasets made public for classification, segmentation, regression and/or registration tasks",
-    "shortName": "Histopathology Datasets Survey",
-    "year": 2024,
-    "task": [
-      "segmentation",
-      "classification"
+    "title": "组织病理学数据集综述",
+    "category": "数据集",
+    "tags": ["数据集", "综述", "组织病理学"],
+    "summary": "关于公开的组织病理学数据集的综合调研，涵盖分类、分割、回归和配准任务。",
+    "insights": "这个知识点帮助我系统地了解了当前可用的组织病理学数据集，为后续研究提供了重要参考。",
+    "papers": [
+      {
+        "name": "histopathology datasets made public for classification, segmentation, regression and/or registration tasks",
+        "shortName": "Histopathology Datasets Survey",
+        "year": 2024,
+        "authors": "作者1, 作者2, 作者3",
+        "venue": "会议/期刊名称",
+        "task": ["segmentation", "classification"],
+        "links": {
+          "pdf": "#",
+          "code": "#"
+        }
+      }
     ],
-    "authors": "作者1, 作者2, 作者3",
-    "venue": "会议/期刊名称",
-    "summary": "这里是论文的核心思想总结。简要描述论文的主要贡献和创新点。",
-    "insights": "这里记录你的阅读心得、思考、启发或对该论文的评价。可以包括方法的优缺点、实验设计的思考等。",
-    "links": {
-      "pdf": "#",
-      "code": "#"
-    }
+    "relatedTopics": ["数据集", "组织病理学"]
   },
   {
     "id": "0002",
-    "name": "示例论文 2 - 完整标题示例",
-    "shortName": "示例论文 2",
-    "year": 2023,
-    "task": [
-      "detection"
+    "title": "细胞核分割方法",
+    "category": "方法",
+    "tags": ["分割", "细胞核", "深度学习"],
+    "summary": "关于细胞核分割的多种深度学习方法及其比较。",
+    "insights": "通过对比不同方法，我理解了细胞核分割的难点和现有解决方案的优缺点。",
+    "papers": [
+      {
+        "name": "示例论文 2 - 完整标题示例",
+        "shortName": "示例论文 2",
+        "year": 2023,
+        "authors": "作者1, 作者2",
+        "venue": "会议/期刊名称",
+        "task": ["detection"],
+        "links": {
+          "pdf": "#"
+        }
+      },
+      {
+        "name": "示例论文 3 - 这是一个很长的完整论文标题示例",
+        "shortName": "示例论文 3",
+        "year": 2023,
+        "authors": "作者1, 作者2, 作者3, 作者4",
+        "venue": "会议/期刊名称",
+        "task": ["segmentation"],
+        "links": {
+          "pdf": "#",
+          "code": "#"
+        }
+      }
     ],
-    "authors": "作者1, 作者2",
-    "venue": "会议/期刊名称",
-    "summary": "另一篇论文的总结。保持格式一致，便于阅读。",
-    "insights": "记录你的思考和收获。",
-    "links": {
-      "pdf": "#"
-    }
-  },
-  {
-    "id": "0003",
-    "name": "示例论文 3 - 这是一个很长的完整论文标题示例",
-    "shortName": "示例论文 3",
-    "year": 2023,
-    "task": [
-      "segmentation"
-    ],
-    "authors": "作者1, 作者2, 作者3, 作者4",
-    "venue": "会议/期刊名称",
-    "summary": "可以继续添加更多论文阅读心得。每篇论文都有独立的卡片展示。",
-    "insights": "记录你对这篇论文的深入思考和理解。",
-    "links": {
-      "pdf": "#",
-      "code": "#"
-    }
+    "relatedTopics": ["分割", "细胞核"]
   }
 ]
