@@ -1,0 +1,68 @@
+[
+  {
+    "id": "0001",
+    "title": "半监督教师学生架构",
+    "category": "数据集",
+    "tags": ["数据集", "综述", "组织病理学"],
+    "summary": "关于公开的组织病理学数据集的综合调研，涵盖分类、分割、回归和配准任务。",
+    "insights": "这个知识点帮助我系统地了解了当前可用的组织病理学数据集，为后续研究提供了重要参考。",
+    "papers": [
+      {
+        "name": "CellGenNet: A knowledge-distilled framework for robust cell segmentation in cancer tissues",
+        "shortName": "Tversky像素级损失驱动语义分割",
+        "year": 2025,
+        "authors": "作者1, 作者2, 作者3",
+        "venue": "arxiv",
+        "task": ["semseg"],
+        "links": {
+          "pdf": "https://arxiv.org/abs/2511.15054"
+        }
+      },
+      {
+        "name": "Instance-aware robust consistency regularization for semi-supervised nuclei instance segmentation",
+        "shortName": "实例级别教师学生网络对齐",
+        "year": 2025,
+        "authors": "作者1, 作者2, 作者3",
+        "venue": "MIA",
+        "task": ["insseg"],
+        "links": {
+          "pdf": "https://arxiv.org/abs/2510.09329"
+        }
+      }
+    ],
+    "relatedTopics": ["数据集", "组织病理学"]
+  },
+  {
+    "id": "0002",
+    "title": "数据高效学习",
+    "category": "方法",
+    "tags": ["稀有数据利用", "细胞核分割"],
+    "summary": "关于细胞核分割的多种深度学习方法及其比较。",
+    "insights": "通过对比不同方法，我理解了细胞核分割的难点和现有解决方案的优缺点。",
+    "papers": [
+      {
+        "name": "Breast cell segmentation under extreme data constraints: Quantum enhancement meets adaptive loss stabilization",
+        "shortName": "Breast cell semantic segmentation",
+        "year": 2025.12,
+        "authors": "作者1, 作者2",
+        "venue": "arxiv",
+        "task": ["semseg"],
+        "links": {
+          "pdf": "https://arxiv.org/abs/2512.02302"
+        }
+      },
+      {
+        "name": "Tissue aware nuclei detection and classification model for histopathology images",
+        "shortName": "tissue enhance nuclei detection and classification(puma)",
+        "year": 2025.11,
+        "authors": "作者1, 作者2, 作者3, 作者4",
+        "venue": "arxiv",
+        "task": ["semseg","det","classi"],
+        "links": {
+          "pdf": "https://arxiv.org/abs/2511.13615"
+        }
+      }
+    ],
+    "relatedTopics": ["分割", "细胞核"]
+  }
+]

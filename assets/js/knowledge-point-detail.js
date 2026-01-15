@@ -5,9 +5,9 @@ const KNOWLEDGE_POINTS_CONFIG = SITE_CONFIG.papers || {};
 // 根据当前页面位置确定路径
 const currentPath = window.location.pathname || window.location.href;
 const isInTemplates = currentPath.includes('templates/') || currentPath.includes('/templates/');
-const KNOWLEDGE_POINTS_BASE_PATH = isInTemplates ? '../papers/' : 'papers/';
+const KNOWLEDGE_POINTS_BASE_PATH = isInTemplates ? '../knowledge-points/' : 'knowledge-points/';
 // 知识点列表文件（列表格式，使用下划线前缀使其排在前面）
-const KNOWLEDGE_POINTS_LIST_PATH = `${KNOWLEDGE_POINTS_BASE_PATH}_papers.json`;
+const KNOWLEDGE_POINTS_LIST_PATH = `${KNOWLEDGE_POINTS_BASE_PATH}_knowledge-points.json`;
 
 // 从 URL 参数获取知识点 ID
 function getKnowledgePointIdFromURL() {
@@ -15,7 +15,7 @@ function getKnowledgePointIdFromURL() {
     return urlParams.get('id');
 }
 
-// 加载知识点基本信息（从列表格式的 _papers.json）
+// 加载知识点基本信息（从列表格式的 _knowledge-points.json）
 async function loadKnowledgePointBasicInfo(kpId) {
     try {
         // 加载知识点列表
@@ -26,7 +26,7 @@ async function loadKnowledgePointBasicInfo(kpId) {
         const knowledgePointsList = await response.json();
         
         if (!Array.isArray(knowledgePointsList)) {
-            throw new Error('_papers.json 格式错误：应该是数组格式');
+            throw new Error('_knowledge-points.json 格式错误：应该是数组格式');
         }
         
         // 在列表中查找匹配的知识点
@@ -43,7 +43,7 @@ async function loadKnowledgePointBasicInfo(kpId) {
     }
 }
 
-// 加载 Markdown 文件（从 papers/{id}.md）
+// 加载 Markdown 文件（从 knowledge-points/{id}.md）
 async function loadMarkdownFile(kpId) {
     try {
         const markdownPath = `${KNOWLEDGE_POINTS_BASE_PATH}${kpId}.md`;
@@ -74,6 +74,15 @@ async function renderMarkdown(markdownContent, kpId) {
 
     // 使用 marked.js 渲染 Markdown
     markdownContainer.innerHTML = marked.parse(markdownContent);
+
+    // 等待 MathJax 渲染数学公式
+    if (window.MathJax && window.MathJax.typesetPromise) {
+        try {
+            await window.MathJax.typesetPromise([markdownContainer]);
+        } catch (error) {
+            console.warn('MathJax rendering failed:', error);
+        }
+    }
 }
 
 // 渲染基本信息

@@ -248,7 +248,7 @@
 .datasets-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 800px;
+    min-width: 1200px;
 }
 
 .datasets-table thead {
@@ -292,8 +292,8 @@
 
 /* 第一列：数据集名称 */
 .dataset-name-cell {
-    min-width: 250px;
-    width: 25%;
+    min-width: 300px;
+    width: 28%;
 }
 
 .dataset-name {
@@ -361,8 +361,8 @@
 
 /* 第二列：链接 */
 .dataset-links-cell {
-    min-width: 200px;
-    width: 20%;
+    min-width: 250px;
+    width: 22%;
 }
 
 .link-btn {

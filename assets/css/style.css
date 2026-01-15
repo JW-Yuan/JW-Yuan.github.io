@@ -28,9 +28,9 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1800px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 30px;
 }
 
 /* 导航栏 */
@@ -46,9 +46,9 @@ body {
 }
 
 .nav-container {
-    max-width: 1200px;
+    max-width: 1800px;
     margin: 0 auto;
-    padding: 1rem 20px;
+    padding: 1rem 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -259,8 +259,10 @@ body {
 /* 项目卡片 */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 .project-card {
@@ -457,7 +459,7 @@ body {
     flex: 1;
 }
 
-/* .paper-year 样式已移至 papers.css，此处不再使用 */
+/* .paper-year 样式已移至 knowledge-points.css，此处不再使用 */
 
 .paper-authors,
 .paper-venue {

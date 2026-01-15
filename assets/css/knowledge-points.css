@@ -248,7 +248,7 @@
 .papers-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 800px;
+    min-width: 1200px;
 }
 
 .papers-table thead {
@@ -290,10 +290,10 @@
     vertical-align: top;
 }
 
-/* 第一列：论文名称 */
+/* 第一列：知识点名称 */
 .paper-name-cell {
-    min-width: 250px;
-    width: 25%;
+    min-width: 300px;
+    width: 28%;
 }
 
 .paper-name {
@@ -361,10 +361,10 @@
     font-size: 0.75rem;
 }
 
-/* 第二列：作者/会议 */
+/* 第二列：相关论文 */
 .paper-authors-cell {
-    min-width: 200px;
-    width: 20%;
+    min-width: 250px;
+    width: 22%;
 }
 
 .info-row {

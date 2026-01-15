@@ -5,9 +5,9 @@ const KNOWLEDGE_POINTS_CONFIG = SITE_CONFIG.papers || {};
 // 根据当前页面位置确定路径
 const currentPath = window.location.pathname || window.location.href;
 const isInTemplates = currentPath.includes('templates/') || currentPath.includes('/templates/');
-const KNOWLEDGE_POINTS_BASE_PATH = isInTemplates ? '../papers/' : 'papers/';
-// 索引文件现在在 papers 文件夹中，是列表格式，使用下划线前缀使其排在前面
-const KNOWLEDGE_POINTS_INDEX_PATH = `${KNOWLEDGE_POINTS_BASE_PATH}_papers.json`;
+const KNOWLEDGE_POINTS_BASE_PATH = isInTemplates ? '../knowledge-points/' : 'knowledge-points/';
+// 索引文件现在在 knowledge-points 文件夹中，是列表格式，使用下划线前缀使其排在前面
+const KNOWLEDGE_POINTS_INDEX_PATH = `${KNOWLEDGE_POINTS_BASE_PATH}_knowledge-points.json`;
 
 // 调试信息
 console.log('知识点路径配置:', {
@@ -65,7 +65,7 @@ function extractAllYears(knowledgePoint) {
     return Array.from(yearSet);
 }
 
-// 加载所有知识点（从 _papers.json 列表格式）
+// 加载所有知识点（从 _knowledge-points.json 列表格式）
 async function loadKnowledgePointsList() {
     try {
         console.log('正在加载知识点列表:', KNOWLEDGE_POINTS_INDEX_PATH);
@@ -81,7 +81,7 @@ async function loadKnowledgePointsList() {
         const knowledgePointsList = await response.json();
         
         if (!Array.isArray(knowledgePointsList)) {
-            throw new Error('_papers.json 格式错误：应该是数组格式');
+            throw new Error('_knowledge-points.json 格式错误：应该是数组格式');
         }
         
         console.log('成功加载知识点列表，找到', knowledgePointsList.length, '个知识点');
@@ -128,11 +128,11 @@ async function loadAllKnowledgePoints() {
             throw new Error('没有成功加载任何知识点');
         }
         
-        // 按知识点标题的字符顺序排序
+        // 按知识点ID的数值顺序排序（从小到大，0001, 0002, 0003...）
         allKnowledgePoints.sort((a, b) => {
-            const titleA = (a.title || '').toLowerCase();
-            const titleB = (b.title || '').toLowerCase();
-            return titleA.localeCompare(titleB, 'zh-CN');
+            const idA = parseInt(a.id, 10);
+            const idB = parseInt(b.id, 10);
+            return idA - idB;
         });
         
         // 初始化筛选器
@@ -338,11 +338,11 @@ function applyFilters() {
         return true;
     });
     
-    // 按知识点标题的字符顺序排序
+    // 按知识点ID的数值顺序排序（从小到大，0001, 0002, 0003...）
     filteredKnowledgePoints.sort((a, b) => {
-        const titleA = (a.title || '').toLowerCase();
-        const titleB = (b.title || '').toLowerCase();
-        return titleA.localeCompare(titleB, 'zh-CN');
+        const idA = parseInt(a.id, 10);
+        const idB = parseInt(b.id, 10);
+        return idA - idB;
     });
     
     // 更新计数
@@ -389,7 +389,7 @@ function renderTable() {
         const kpId = kp.id;
         titleCell.innerHTML = `
             <div class="paper-name">
-                <a href="paper-detail.html?id=${kpId}" class="paper-name-link">
+                <a href="knowledge-point-detail.html?id=${kpId}" class="paper-name-link">
                     <strong>${kp.title || '未命名知识点'}</strong>
                     <i class="fas fa-external-link-alt link-icon"></i>
                 </a>

@@ -27,7 +27,7 @@ const SITE_CONFIG = {
         },
         {
             name: '知识点',
-            path: 'templates/papers.html',
+            path: 'templates/knowledge-points.html',
             icon: 'fas fa-lightbulb'
         }
     ],
@@ -61,9 +61,9 @@ const SITE_CONFIG = {
     // 论文配置
     papers: {
         // 论文文件夹路径（相对于网站根目录）
-        basePath: 'papers/',
+        basePath: 'knowledge-points/',
         // 论文列表文件（列表格式，包含所有论文的基本信息，使用下划线前缀使其排在前面）
-        listFile: '_papers.json',
+        listFile: '_knowledge-points.json',
         // 详细信息文件命名规则：{id}.md（例如：0001.md）
     }
 };

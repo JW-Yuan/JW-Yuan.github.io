@@ -3,13 +3,13 @@
 ## 文件结构
 
 ```
-papers/
+knowledge-points/
 ├── [paper-id]/                   # 每篇论文的文件夹 (例如: 0001/)
 │   ├── info.json                 # 论文基本信息文件
 │   └── detail.md                 # 论文详细信息（Markdown 格式）
 ```
 
-所有论文索引信息存储在根目录的 `papers.json` 文件中。
+所有知识点索引信息存储在 `knowledge-points/` 文件夹中的 `_knowledge-points.json` 文件中。
 
 ## 论文基本信息文件格式
 
@@ -117,10 +117,10 @@ papers/
 
 ## 添加新论文
 
-1. **创建论文文件夹**：在 `papers/` 文件夹中创建新的 4 位数字 ID 文件夹（如 `0004/`）
+1. **创建论文文件夹**：在 `knowledge-points/` 文件夹中创建新的 4 位数字 ID 文件夹（如 `0004/`）
 2. **创建基本信息文件**：在该文件夹中创建 `info.json`
 3. **创建详细信息文件**（可选）：在该文件夹中创建 `detail.md`
-4. **添加到索引**：在根目录的 `papers.json` 中添加新的 ID 和论文名称
+4. **添加到索引**：在 `knowledge-points/` 文件夹的 `_knowledge-points.json` 中添加新的知识点
 
 ### 示例
 
@@ -143,7 +143,7 @@ papers/
 }
 ```
 
-然后在根目录的 `papers.json` 中添加：
+然后在 `knowledge-points/` 文件夹的 `_knowledge-points.json` 中添加：
 ```json
 {
     "0001": "示例论文 1",
@@ -159,7 +159,7 @@ papers/
 - 所有链接字段都是可选的
 - `year` 字段用于排序和筛选，建议填写
 - `task` 字段用于筛选，建议填写
-- 索引文件 `papers.json` 位于网站根目录，格式为字典：`{ "0001": "论文名称", ... }`
+- 索引文件 `_knowledge-points.json` 位于 `knowledge-points/` 文件夹中，格式为数组：`[{ "id": "0001", "title": "知识点标题", ... }, ...]`
 
 ## 优势
 
